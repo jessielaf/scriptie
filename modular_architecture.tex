@@ -78,6 +78,7 @@ Another divergence is that each microservice should have a separate datastore. T
 What are the advantages of miniservices over microservices? The most prominent answer is the complexity of the network architecture. With microservices every service is singled out. Which means no service knows about each other so the protocol in which the services speak can be different and may differ from service to service. Also with miniservices each service connects to the same database. Which makes it easier to do complex querying.
 
 \subsection{Modular monolith}
+\label{sec:ModularMonolith}
 
 The main idea behind a modular monolith is preserving the idea of encapsulation but deploying it differently \cite{modularMonolithIdea}. Instead of deploying different services separately with each service having its own datastore, a module can be a library, plugin or namespace. This makes deploying way easier to manage but still having the modularity gotten from encapsulation. 
 
@@ -153,34 +154,31 @@ It is known that testing plays a big role in creating reliable software. There a
 \subsection{Unit tests}
 \label{sec:UnitTests}
 
-ORDERED LIST
-\begin{itemize}
+\begin{enumerate}
         \item Microservices
         \item Miniservices
         \item Modular monolith
-\end{itemize}
+\end{enumerate}
 
 This is because especially in a microservice because each function is its own service the functions are really easy to test. Because miniservices are domain based it takes a bit more effort to test the whole service but it is easier than the modular monolith. This is because the modular monolith is a bit tighter coupled than the miniservice.
 
 \subsection{Integration tests}
 
-ORDERED LIST
-\begin{itemize}
+\begin{enumerate}
         \item Miniservices
         \item Modular monolith
         \item Microservices
-\end{itemize}
+\end{enumerate}
 
 Because the modular monolith contains all its services it is easy to test how they work together. This can even be done with unittesting. For the miniservices and microservices it is way more difficult. The reasoning behind this is the complexity of the service discovery. To test for example two services you need to setup the service discovery. With each service that needs to be tested it will become harder to test it because more services need to be discovered. A integration test with microservices may call 6 different services. But with miniservices it may be less if the functions that are called are in the same domain. This is why microservices gets the last place in this type of testing.
 
 \subsection{End-to-end tests}
 
-ORDERED LIST
-\begin{itemize}
+\begin{enumerate}
         \item Miniservices
         \item Modular monolith
         \item Microservices
-\end{itemize}
+\end{enumerate}
 
 As seen with the previous test types the same problem occurs. A function that is called may need multiple microservices or miniservices called.
 

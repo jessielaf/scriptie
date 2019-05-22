@@ -1,0 +1,32 @@
+\chapter{Implementation of the architecture}
+
+The chosen implementation is modulair monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles we can take from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
+
+\section{Characteristics}
+
+Domain driven design was coined by Eric Evans in his book Domain driven design \cite{domainDrivenDesign}. Eric Evans himself said that there is no real standard for domain driven design. Let’s first define what a domain is. 
+
+\largequote{A domain is a field of study that defines a set of common requirements, terminology, and functionality for any software program constructed to solve a problem in the area of computer programming, known as domain engineering. The word domain is also taken as a synonym of application domain It is also seen as a sphere of knowledge \cite{domainDefinition}}
+
+What is important to note is that each module is linked to a domain but there is a distinct difference between only implementing domain driven design and modular monolith. The main distinct feature is that in a modular monolith the module does know that another module exists but not the contents of this module. This is not the case with domain driven design.
+
+The difference that this makes it that each module should be able to talk with each other and thus there need to be an api over which each module can talk with each other. 
+
+\section{Current situation}
+
+This architecture will apply to the application of EFFE. Below is a list of the functionalities of the current application. This is so we can paint a good picture of the current situation.
+
+\begin{enumerate}
+    \item Login
+    \item Reset password
+    \item Shift overview (Roster and table view)
+    \item Create shift
+    \item Generate schedule: automatically link users with shifts
+    \item Hour registration
+    \item Shift market: Market of shifts that are not filled completely
+    \item Availability form: User can enter his availability. This is together with generate schedule
+    \item User CRUD*
+    \item Switching shifts
+    \item Calling in sick
+    \item Client CRUD*
+\end{enumerate}
