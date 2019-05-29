@@ -1,6 +1,6 @@
 \chapter{Implementation of the architecture}
 
-The chosen implementation is modulair monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles we can take from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
+The chosen implementation is modular monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles we can take from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
 
 \section{Characteristics}
 
@@ -138,7 +138,71 @@ Each functionality belongs to a certain domain. When looking at the functionalit
 As you can see there are only two building blocks. Those are the Hour Registration and the Shift market. But this does not mean that the other domains should not be modules. If every domain is a module it makes it easy for us to change a basic function if an enterprise wants that.
 
 \section{API}
+\label{sec:API}
+
+When creating this API the assumption is done that a modern ORM(Object relational mapping) is used. 
+
+\largequote{Object-relational-mapping is the idea of being able to write queries, as well as much more complicated ones, using the object-oriented paradigm of your preferred programming language. \cite{ormDefinition}}
+
+This assumption is done because almost every modern framework uses this concept to map objects to a relational database which is what EFFE uses.
+
+Therefore the first attribute defined in our api is the \textbf{model} itself. \textcolor{red}{REF TO IMPLEMENTATION}
 
 Microservices talk with each other via a protocol. The most used protocols are HTTP, TCP or AMQP \cite{microservicesAPI}. What all of these protocols have in common is that they return a serialized version of the response. Most of the time in JSON.
 
-Commonly in web frameworks there is something used like a dataclass or a serializer. This shows what of an object will be serialized into a JSON object and send back and forth via http. Thus if the api of a module in the modulair monolith can expose such a serializer the application can send a foreign key of an object back and forth.
+Commonly in web frameworks there is something used like a dataclass or a serializer. This shows how an object will be serialized into a JSON object and send back and forth via http. Thus if the api of a module in the modular monolith can expose such a serializer the application can serialize all the foreign keys the module's model has. But when working with the application of EFFE the company found that each user role may require a other specific serializer. For example: EFFE has three roles: the employment agency employee, the client and the temp worker. If the client and the temp worker want to retrieve the shifts the client also gets the users in that shift while the temp worker only sees the general data of the shift. This is so that temp workers won't have the biased in taking shifts with people they like or vise versa.
+
+Therefore it is important to note that each role should have a specific serializer. So in the API there should be \textbf{base serializer} and the option to change the \textbf{serializer by role}.
+
+\section{Programming language and Web framework}
+
+It is obvious why programming languages will be researched but maybe not why there is a need for a web framework. As mentioned before in this chapter most of the web applications use a web framework. 
+
+\largequote{A web framework is a software tool that provides a way to build and run web applications. As a result, you don’t need to write code on your own and waste time looking for possible miscalculations and bugs. \cite{webFrameworkDefinition}}
+
+It is a industry standard to use web frameworks. It simply makes life easier. But which web framework? The comparison will be of the front- and backend frameworks and languages. There will not be a research of the whole framework or language. The only thing that will be researched is the modularity of the framework or language.
+
+\subsection{Backend}
+
+Even though the programming language is important most of the time their modularity comes from the framework that is implemented. According to hackers.io these are the top backend frameworks in 2019 \cite{topFrameworks}
+
+\begin{enumerate}
+    \item Express (Node.js)
+    \item Django (Python)
+    \item Rails (Ruby)
+    \item Laravel (PHP)
+    \item Spring (Java)
+\end{enumerate}
+
+What is interesting to note is that each framework uses a different programming language. There is one that jumps out of the languages that are used. That is Java. This is because Java is the only one that is statically typed. One of the requirements was being as flexible as possible and this is just not possible when working with a statically typed language. Therefore Spring falls off.
+
+There are four frameworks left. These frameworks will be tested with this use case:
+
+There is a shift module. The model has four attributes
+\begin{itemize}
+    \item Title
+    \item Start date
+    \item End date
+    \item Employees
+\end{itemize}
+
+And there is a employee module with the model having these attributes:
+\begin{itemize}
+    \item Name
+    \item Birth date
+    \item Email
+\end{itemize}
+
+There should be an api to get all shifts with their employees and to get all shifts for a single employee.
+
+Last of all the modules should only talk with each other via the \fullref{sec:API}.
+
+All of these tests are done using Windows 10 on a Dell 13 XPS, usage of the git bash terminal and the usage of MySQL as the primary database.
+
+The assumption is made that the data base exists where root is the username and password and the web framework used is the name of the database table.
+
+All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
+
+\begin{itemize}
+    \item \fullref{sec:DjangoImpl}
+\end{itemize}
