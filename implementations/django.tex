@@ -133,6 +133,11 @@ The django application expects that in \texttt{modular\_monolith/settings.py} th
         'employees',
         'modular_monolith'
     ]
+
+    
+    REST_FRAMEWORK = {
+        "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
+    }
 \end{verbatim}
 
 Now run the command makemigrations and migrate in order to create the tables for the new modules:
@@ -173,30 +178,72 @@ shifts/serializers/list.py
             fields = '__all__'  
 \end{verbatim}
 
+And the create serializer for both:
+
+employees/serializers/create.py
+\begin{verbatim}
+    from rest_framework import serializers
+    from employees.models import Employee
+
+
+    class CreateSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Employee
+            fields = '__all__'
+
+\end{verbatim}
+
+shifts/serializers/create.py
+\begin{verbatim}
+    from rest_framework import serializers
+    from shifts.models import Shift
+
+
+    class CreateSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Shift
+            fields = '__all__'
+
+\end{verbatim}
+
 Now add the views to \texttt{employees/views.py} and \texttt{shifts.views.py} respectively as such:
 
 employees/views.py
 \begin{verbatim}
     from rest_framework import viewsets
     from employees.models import Employee
+    from employees.serializers.create import CreateSerializer
     from employees.serializers.list import ListSerializer
 
 
     class MainViewSet(viewsets.ModelViewSet):
         queryset = Employee.objects.all()
         serializer_class = ListSerializer
+
+        def get_serializer_class(self):
+            if self.action == 'create':
+                return CreateSerializer
+
+            return super().get_serializer_class()
 \end{verbatim}
 
 shifts.views.py
 \begin{verbatim}
     from rest_framework import viewsets
     from shifts.models import Shift
+    from shifts.serializers.create import CreateSerializer
     from shifts.serializers.list import ListSerializer
 
 
     class MainViewSet(viewsets.ModelViewSet):
         queryset = Shift.objects.all()
         serializer_class = ListSerializer
+
+        def get_serializer_class(self):
+            if self.action == 'create':
+                return CreateSerializer
+
+            return super().get_serializer_class()
 \end{verbatim}
 
 Next is the addition of the views to the main application. Thus \texttt{modular\_monolith/urls.py} looks like:
