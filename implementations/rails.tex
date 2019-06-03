@@ -1,0 +1,36 @@
+This test uses Ruby 2.5.5 and rails version 5.2.3.
+
+Install rails and the mysql client by running
+\begin{verbatim}
+  gem install rails mysql2
+\end{verbatim}
+
+Create a new rails project with mysql and focussed on building an api
+\begin{verbatim}
+  rails new modular_monolith -d mysql --api
+\end{verbatim}
+
+Change your database name and password in the \texttt{config/database.yml}
+\begin{verbatim}
+  default: &default
+    ...
+    password: root
+
+  development:
+    ...
+    database: rails
+    ...
+\end{verbatim}
+
+The time has come to create the first model. This can be done by:
+\begin{verbatim}
+  rails g model Employee name:string birth_date:date
+\end{verbatim}
+
+Rails has created the model in \texttt{app/models/employee.rb} but the model does not contain the given attributes. Thus change the model to
+\begin{verbatim}
+  class Employee < ApplicationRecord
+    validates :name, presence: true
+    validates :birth_date, presence: true
+  end
+\end{verbatim}
