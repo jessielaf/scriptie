@@ -1,0 +1,15 @@
+Spring has something called initliazr which can be found at \hyperref{https://start.spring.io/}. On this site select Kotlin as the language, leave group empty, fill artifact with modular\_monilith and last of all add JPA and MySQL as a dependency.
+
+First the interface for the API:
+\begin{verbatim}
+  package modular_monolith
+
+  import kotlin.reflect.KClass
+
+  interface Api {
+      fun getSerializer(): KClass<*>;
+      fun getRepository(): KClass<*>;
+  }
+\end{verbatim}
+
+As you can see 

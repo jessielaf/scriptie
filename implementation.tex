@@ -163,6 +163,7 @@ It is obvious why programming languages will be researched but maybe not why the
 It is a industry standard to use web frameworks. It simply makes life easier. But which web framework? The comparison will be of the front- and backend frameworks and languages. There will not be a research of the whole framework or language. The only thing that will be researched is the modularity of the framework or language.
 
 \subsection{Backend}
+\label{sec:BackendImplementation}
 
 Even though the programming language is important most of the time their modularity comes from the framework that is implemented. According to hackers.io these are the top backend frameworks in 2019 \cite{topFrameworks}
 
@@ -205,4 +206,26 @@ All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
 \begin{itemize}
     \item \fullref{sec:DjangoImpl}
+    \item \fullref{sec:LaravelImpl}
+\end{itemize}
+
+Django is the only framework that supports this type of architecture. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like with Laravel or Rails.
+
+\subsection{Frontend}
+
+Frontend is a very fast moving section of software engineering. On october 8th 2010 \cite{angularJs} the first big frontend framework was published called AngularJs. This framework has been maintained by google and received a lot of traction. Three years later at Js ConfUS Jordan Walke of Facebook gave a introduction to React \cite{reactJs}. This changed the frontend world. Mainly because react was not a framework but a library. Which means that you are able to include it in your existing project where with angular you solely have angular application. In February 2014 the last big javascript framework would be released called Vue \cite{vueJs}. Vue is often seen as the perfect blend between React and Angular. This is partly because Vue can be used as a library and a framework.
+
+These three frameworks / libraries where chosen because they are the most used and the most loved by the javascript community \cite{allFrontendFrameworks}.
+
+First off there is a need to define what should be in the api of each module in the frameworks. There is only one actual layer the modules should export and that is the service. The service of a model as explained in \fullref{sec:BackendImplementation}. They should export all the CRUD functionalities.
+
+The scope of the test is that the frontend application should use our backend site created in \fullref{sec:BackendImplementation}. So the application should be able to do:
+
+\begin{itemize}
+    \item Create a employee
+    \item List the employees
+    \item Detail employee view
+    \item List shifts
+    \item Add shifts
+    \item Detail shift view
 \end{itemize}
