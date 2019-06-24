@@ -1,6 +1,6 @@
 \chapter{Implementation of the architecture}
 
-The chosen implementation is modular monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles we can take from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
+The chosen implementation is modular monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles can be taken from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
 
 \section{Characteristics}
 
@@ -14,10 +14,24 @@ The difference that this makes it that each module should be able to talk with e
 
 \section{Current situation}
 
-This architecture will apply to the application of EFFE. Below is a list of the functionalities of the current application. This is so we can paint a good picture of the current situation.
+This architecture will apply to the application of EFFE. Below is a list of the functionalities of the current application. This is in order to paint a good picture of the current situation.
 
+\begin{enumerate}
+    \item Login
+    \item Reset password
+    \item Shift overview (Roster and table view)
+    \item Create shift
+    \item Generate schedule: automatically link users with shifts
+    \item Hour registration
+    \item Shift market: Market of shifts that are not filled completely
+    \item Availability form: User can enter his availability. This is together with generate schedule
+    \item User CRUD*
+    \item Switching shifts
+    \item Calling in sick
+    \item Client CRUD*
+\end{enumerate}
 
-Each functionality belongs to a certain domain. When looking at the functionalities we can determine that there are x domains which are the following:
+Each functionality belongs to a certain domain. When looking at the functionalities the domains can be defined:
 
 \begin{tabularx}{\linewidth}{|>{}X|>{}X|>{}X|}
     \hline
@@ -34,7 +48,7 @@ Each functionality belongs to a certain domain. When looking at the functionalit
     \begin{compactitem}
         \item Reset password
         \item User CRUD*
-    \end{compactitem}  
+    \end{compactitem}
     &
     No
     \\ \hline
@@ -140,7 +154,7 @@ As you can see there are only two building blocks. Those are the Hour Registrati
 \section{API}
 \label{sec:API}
 
-When creating this API the assumption is done that a modern ORM(Object relational mapping) is used. 
+When creating this API the assumption is done that a modern ORM(Object relational mapping) is used.
 
 \largequote{Object-relational-mapping is the idea of being able to write queries, as well as much more complicated ones, using the object-oriented paradigm of your preferred programming language. \cite{ormDefinition}}
 
@@ -156,7 +170,7 @@ Therefore it is important to note that each role should have a specific serializ
 
 \section{Programming language and Web framework}
 
-It is obvious why programming languages will be researched but maybe not why there is a need for a web framework. As mentioned before in this chapter most of the web applications use a web framework. 
+It is obvious why programming languages will be researched but maybe not why there is a need for a web framework. As mentioned before in this chapter most of the web applications use a web framework.
 
 \largequote{A web framework is a software tool that provides a way to build and run web applications. As a result, you don’t need to write code on your own and waste time looking for possible miscalculations and bugs. \cite{webFrameworkDefinition}}
 
@@ -194,7 +208,7 @@ And there is a employee module with the model having these attributes:
     \item Email
 \end{itemize}
 
-The application will provide an api which do a create, list and retrieve(single object) for both shifts and employees. 
+The application will provide an api which do a create, list and retrieve(single object) for both shifts and employees.
 
 Last of all the modules should only talk with each other via the \fullref{sec:API}.
 
@@ -229,3 +243,13 @@ The scope of the test is that the frontend application should use our backend si
     \item Add shifts
     \item Detail shift view
 \end{itemize}
+
+All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
+
+\begin{itemize}
+    \item \fullref{sec:VueImpl}
+    \item \fullref{sec:ReactImpl}
+    \item \fullref{sec:AngularImpl}
+\end{itemize}
+
+From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. Thus the choice goes to Vue.

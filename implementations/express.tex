@@ -1,14 +1,10 @@
 First install the express generator:
 \begin{verbatim}
-  yarn global add express-generator
-\end{verbatim}
-
-Then run the command to create the express app
-\begin{verbatim}
-  express modular_monolith
-\end{verbatim}
-
-Express does not have all the batteries included as the other frameworks. This means that we have to add everything which includes the ORM. The ORM we are using is sequelize. Add this by running
-\begin{verbatim}
-  yarn add sequelize mysql2
+  npm install sequelize-cli -g
+  mkdir express
+  cd express
+  npm init -y
+  npm install sequelize mysql2 express @babel/core @babel/cli @babel/node body-parser --save
+  npm install @babel/preset-env nodemon --save-dev
+  sequelize init
 \end{verbatim}
