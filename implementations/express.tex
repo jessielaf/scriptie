@@ -1,10 +1,288 @@
 First install the express generator:
 \begin{verbatim}
-  npm install sequelize-cli -g
-  mkdir express
-  cd express
   npm init -y
-  npm install sequelize mysql2 express @babel/core @babel/cli @babel/node body-parser --save
+  npm install sequelize mysql2 express @babel/core @babel/cli @babel/node body-parser sequelize-cli --save
   npm install @babel/preset-env nodemon --save-dev
-  sequelize init
 \end{verbatim}
+
+In order to use EcmaScript6 there needs to be a \texttt{.babelrc} file with:
+\begin{verbatim}
+  {
+    "presets": ["@babel/preset-env"]
+  }
+\end{verbatim}
+
+Node js obviously works very well with JSON. To define our modules we create \texttt{modules.json}
+\begin{verbatim}
+  ["employees", "shifts"]
+\end{verbatim}
+
+First the database connection will be created using sequelize in \texttt{db.js}
+\begin{verbatim}
+  import modules from "./modules.json";
+  import path from "path";
+  import Sequelize from "sequelize";
+
+  const db = {};
+
+  const sequelize = new Sequelize("express", "root", "root", {
+    host: "127.0.0.1",
+    dialect: "mysql",
+    operatorsAliases: false
+  });
+
+  modules.forEach(module => {
+    const api = require("./" + module + "/api.js").default;
+
+    const model = sequelize.import(path.join(__dirname, module, api.modelPath()));
+    db[model.name] = model;
+  });
+
+  Object.keys(db).forEach(modelName => {
+    if (db[modelName].associate) {
+      db[modelName].associate(db);
+    }
+  });
+
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
+
+  export default db;
+\end{verbatim}
+
+Now the entry file can be created in \texttt{index.js}
+\begin{verbatim}
+  import express from "express";
+  import db from "./db";
+  import modules from "./modules";
+  import bodyParser from "body-parser";
+
+  var app = express();
+
+  app.use(bodyParser.json());
+
+  modules.forEach(module => {
+    require(`./${module}/api`).default.views(app, db);
+  });
+
+  app.listen(8000, () => {
+    db.sequelize.sync();
+  });
+\end{verbatim}
+
+Now the api definition in \texttt{api.js}
+\begin{verbatim}
+  export default class Api {
+    static modelPath() {
+      return "model.js";
+    }
+
+    static views(app) {
+      console.error("Add views to the api");
+    }
+  }
+\end{verbatim}
+
+Next up is creating the employee module. First up is the model. First we create the migration by running
+\begin{verbatim}
+  sequelize migration:create --name create_employee_table
+\end{verbatim}
+
+Now there should be a file in the \texttt{migrations} folder ending with \texttt{create\_employee\_table}. Update this file with
+\begin{verbatim}
+  'use strict';
+  module.exports = {
+    up: (queryInterface, Sequelize) => {
+      return queryInterface.createTable('Employees', {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER
+        },
+        name: {
+          type: Sequelize.STRING
+        },
+        birth_date: {
+          type: Sequelize.DATE
+        },
+        email: {
+          type: Sequelize.STRING
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE
+        }
+      });
+    },
+    down: (queryInterface, Sequelize) => {
+      return queryInterface.dropTable('Employees');
+    }
+  };
+\end{verbatim}
+
+Next the model can be created in \texttt{employees/model.js}
+\begin{verbatim}
+  export default (sequelize, DataTypes) => {
+    const Employee = sequelize.define(
+      "Employee",
+      {
+        name: DataTypes.STRING,
+        birth_date: DataTypes.DATE,
+        email: DataTypes.STRING
+      },
+      {}
+    );
+
+    return Employee;
+  };
+\end{verbatim}
+
+And to finish the employee api create the file \texttt{employees/api.js}
+\begin{verbatim}
+  import Api from "../api";
+
+  const prefix = "/employees/";
+
+  export default class EmployeeApi extends Api {
+    static views(app, db) {
+      const Employee = db.Employee;
+
+      app.post(prefix, function(req, res) {
+        Employee.create(req.body).then(employee => {
+          res.json(employee);
+        });
+      });
+
+      app.get(prefix, function(req, res) {
+        Employee.findAll().then(employees => {
+          res.json(employees);
+        });
+      });
+
+      app.get(prefix + ":id/", function(req, res) {
+        Employee.findByPk(req.params.id).then(employee => {
+          res.json(employee);
+        });
+      });
+    }
+  }
+\end{verbatim}
+
+Next is the shift module. Again create the migrations:
+\begin{verbatim}
+  sequelize migration:create --name create_shift_table
+\end{verbatim}
+
+Now fill the file in the \texttt{migrations} folder ending with \texttt{create\_shift\_table} with
+\begin{verbatim}
+  "use strict";
+
+  module.exports = {
+    up: (queryInterface, Sequelize) => {
+      return queryInterface.createTable("Shifts", {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER
+        },
+        title: {
+          type: Sequelize.STRING
+        },
+        start: {
+          type: Sequelize.STRING
+        },
+        end: {
+          type: Sequelize.DATE
+        }
+      });
+    },
+
+    down: (queryInterface, Sequelize) => {
+      return queryInterface.dropTable("Shifts");
+    }
+  };
+\end{verbatim}
+
+Now create the model in \texttt{shifts/model.js}
+\begin{verbatim}
+  export default (sequelize, DataTypes) => {
+    const Shift = sequelize.define(
+      "Shift",
+      {
+        title: DataTypes.STRING,
+        start: DataTypes.STRING,
+        end: DataTypes.DATE
+      },
+      {}
+    );
+
+    Shift.associate = models => {
+      models.Shift.belongsToMany(models.Employee, {
+        onDelete: "CASCADE",
+        through: "ShiftEmployee"
+      });
+    };
+
+    return Shift;
+  };
+
+\end{verbatim}
+
+And finish it by creating the api in \texttt{shifts/api.js}
+\begin{verbatim}
+  import Api from "../api";
+
+  const prefix = "/shifts/";
+
+  export default class ShiftApi extends Api {
+    static views(app, db) {
+      const Shift = db.Shift;
+
+      const withEmployee = {
+        include: [
+          {
+            model: db.Employee,
+            through: "ShiftEmployee"
+          }
+        ]
+      };
+
+      app.post(prefix, (req, res) => {
+        Shift.create(req.body).then(async shift => {
+          await shift.setEmployees(req.body.employees);
+          res.json(shift);
+        });
+      });
+
+      app.get(prefix, function(req, res) {
+        Shift.findAll(withEmployee).then(shifts => {
+          res.json(shifts);
+        });
+      });
+
+      app.get(prefix + ":id/", function(req, res) {
+        Shift.findByPk(req.params.id, withEmployee).then(shift => {
+          res.json(shift);
+        });
+      });
+    }
+  }
+\end{verbatim}
+
+Add the start script to package.json
+\begin{verbatim}
+  {
+    ...
+    "scripts": {
+      "start": "nodemon index.js --watch server --exec babel-node"
+    }
+  }
+\end{verbatim}
+
+Now run \texttt{npm start} in your terminal
