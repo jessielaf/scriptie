@@ -1,0 +1,55 @@
+\chapter{Deployment Lane}
+
+The deployment of a project means making the project available to reach with needed minimal setup. The most common one is running a web application. The minimal setup is running a web browser. This is also how the modular monolith will be deployed.
+
+Almost all of the websites you visit will be hosted on a server. A server is a computer which is open to the public on specific ports. This means that the server can serve a website on port 80(http) for example. What can diver is where the server is hosted and maintained. This can be on SaaS services like \href{https://www.heroku.com/home}{Heroku} which manages the server as well as maintaining it and setting it up. The other option is something like \href{https://www.digitalocean.com/}{DigitalOcean} or \href{https://aws.amazon.com/}{Amazon web services}. These companies manage the server but do not set them up. The big difference is you can run multiple instances of a web app on one server. Also you have complete access of the server which may be very important if you want to secure certain bits of your application. The last option is an on premise server. This means that you own the physical server and have it at your office. The big risk is if the server crashes or brakes your whole company will be down. The best option is obviously the usage of services like Digital Ocean and Amazon web services. Which one you use is not important for this research but how we use them is.
+
+\section{Operating system}
+
+The first thing to consider is the operating system. There are two big players when it comes to the operating systems of servers. Windows and Linux. While linux is not a operating system in and of itself it is the ground layer of a lot of other famous operating systems such as ubuntu and debian. The reason linux is often considered better for a server are \cite{linuxBetterThanWindows}:
+\begin{itemize}
+  \item Free and open source
+  \item Stability and Reliability
+  \item Security
+  \item Flexibility
+  \item Hardware Support
+  \item Total Cost of Ownership (TCO) and Maintenance
+\end{itemize}
+
+So what is the best linux distro? It really comes down to preference \cite{bestLinuxDistro}. Right now EFFE uses Debian in production. That is why this is the choice of linux distro.
+
+\section{Setting up servers}
+
+In order to setup a server you can go into the command line and type all the commands yourself until it works. This is of course very easy when you are only deploying one application but when you want a scalable infrastructure this becomes harder and harder. So what you need is a service that sets up the server.
+
+Right now EFFE uses \href{https://www.ansible.com/}{Ansible}. What makes ansible so great is that is can be run on your own computer. Some other options require one dedicated server that handles the configuration of all the servers. This means that the infrastructure gets bigger and bigger. That may be important to a bigger company but EFFE wants its server configuration to be handled easily but with version control. Another alternative to Ansible is \href{http://www.fabfile.org/}{Fabric}. This is a python library that allows you to run commands on a server.
+
+There are other options. The most well known are \href{https://www.saltstack.com/}{SaltStack}, \href{https://puppet.com/}{Puppet} and \href{https://www.chef.io/}{Chef} but all of these solutions require a master server. This is something EFFE does not want as explained in the previous chapter.
+
+There are two differences between ansible and fabric. The first one is pretty obvious when using both. Fabric uses python to write your configuration and ansible uses yaml. Ansible is written in python but the yaml is what you write. Base on the yaml files ansible decides what to run when. The other big difference is that ansible has preconfigured modules. This means that if you want to, for example, install a package you don't write the whole command, as with fabric, but you define the module and the packages. To get a clear understanding an example is shown below:
+
+Fabric:
+\begin{verbatim}
+  connection.run('sudo apt-get install python3 python3-pip')
+\end{verbatim}
+
+Ansible:
+\begin{verbatim}
+  - apt:
+      pkg:
+        - python3
+        - python3-pip
+\end{verbatim}
+
+A byproduct of this is that the output handling is way better with Ansible. This is why Ansible is the choice for our use case.
+
+\section{Deploying}
+Deploying is a different story. Ansible is just to setup the server but when deploying you preferably want to do that based on the activity of your project. There are a few services that allow this. Once again it is important that this software does not add another server to our infrastructure. Possible solutions are:
+\begin{itemize}
+  \item \href{https://about.gitlab.com/}{Gitlab} has a free tier with 2,000 pipeline minutes per group per month \cite{gitlabFreeTier}
+  \item \href{https://buddy.works/}{Buddy} offers a free tier where 120 executions per month with maximum of 5 projects \cite{buddyFreeTier}
+  \item \href{https://circleci.com/}{CircleCI} offers a free tier with 1,000 build minutes per month \cite{circleCIFreeTier}
+  \item \href{https://codefresh.io/}{Codefresh} has a free tier with no constraints on build minutes or executions \cite{codefreshFreeTier}
+\end{itemize}
+
+When looking at these services codefresh stands out because it does not have build time or project limitations. Therefor this is the service we will use for deployment.

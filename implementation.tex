@@ -160,7 +160,7 @@ When creating this API the assumption is done that a modern ORM(Object relationa
 
 This assumption is done because almost every modern framework uses this concept to map objects to a relational database which is what EFFE uses.
 
-Therefore the first attribute defined in our api is the \textbf{model} itself. \textcolor{red}{REF TO IMPLEMENTATION}
+Therefore the first attribute defined in our api is the \textbf{model} itself.
 
 Microservices talk with each other via a protocol. The most used protocols are HTTP, TCP or AMQP \cite{microservicesAPI}. What all of these protocols have in common is that they return a serialized version of the response. Most of the time in JSON.
 
@@ -214,17 +214,19 @@ Last of all the modules should only talk with each other via the \fullref{sec:AP
 
 All of these tests are done using Windows 10 on a Dell 13 XPS, usage of the git bash terminal and the usage of MySQL as the primary database.
 
-The assumption is made that the data base exists where root is the username and password and the web framework used is the name of the database table.
+The assumption is made that the database exists where root is the username and password and the web framework used is the name of the database table.
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
 \begin{itemize}
-    \item \fullref{sec:DjangoImpl}
-    \item \fullref{sec:LaravelImpl}
     \item \fullref{sec:ExpressImpl}
+    \item \fullref{sec:DjangoImpl}
+    \item \fullref{sec:RailsImpl}
+    \item \fullref{sec:LaravelImpl}
+    \item \fullref{sec:SpringImpl}
 \end{itemize}
 
-Django is the only framework that supports this type of architecture. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like with Laravel or Rails.
+Rails and Spring were not successful in the support of creating a modular monolith. Django on the other hand is the only framework that supports this type of architecture out of the box. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in database migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like all the other options.
 
 \subsection{Frontend}
 
