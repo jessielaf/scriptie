@@ -1,3 +1,10 @@
+The versions used are:
+\begin{itemize}
+  \item pip 19.1.1
+  \item python 3.6.8
+  \item Django 2.1.1
+\end{itemize}
+
 First thing to do is install django by running:
 \begin{verbatim}
     pip install Django
@@ -134,7 +141,7 @@ The django application expects that in \texttt{modular\_monolith/settings.py} th
         'modular_monolith'
     ]
 
-    
+
     REST_FRAMEWORK = {
         "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
     }
@@ -153,11 +160,11 @@ employees/serializers/list.py
     from rest_framework import serializers
     from employees.models import Employee
     from shifts.api import api
-    
-    
+
+
     class ListSerializer(serializers.ModelSerializer):
         shifts = api.base_serializer(source='shift_set', many=True)
-    
+
         class Meta:
             model = Employee
             fields = '__all__'
@@ -168,14 +175,14 @@ shifts/serializers/list.py
     from rest_framework import serializers
     from shifts.models import Shift
     from employees.api import api
-    
-    
+
+
     class ListSerializer(serializers.ModelSerializer):
         employees = api.base_serializer(many=True)
-    
+
         class Meta:
             model = Shift
-            fields = '__all__'  
+            fields = '__all__'
 \end{verbatim}
 
 And the create serializer for both:

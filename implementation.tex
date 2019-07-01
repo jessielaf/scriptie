@@ -16,23 +16,6 @@ The difference that this makes it that each module should be able to talk with e
 
 This architecture will apply to the application of EFFE. Below is a list of the functionalities of the current application. This is in order to paint a good picture of the current situation.
 
-\begin{enumerate}
-    \item Login
-    \item Reset password
-    \item Shift overview (Roster and table view)
-    \item Create shift
-    \item Generate schedule: automatically link users with shifts
-    \item Hour registration
-    \item Shift market: Market of shifts that are not filled completely
-    \item Availability form: User can enter his availability. This is together with generate schedule
-    \item User CRUD*
-    \item Switching shifts
-    \item Calling in sick
-    \item Client CRUD*
-\end{enumerate}
-
-Each functionality belongs to a certain domain. When looking at the functionalities the domains can be defined:
-
 \begin{tabularx}{\linewidth}{|>{}X|>{}X|>{}X|}
     \hline
 
@@ -40,7 +23,7 @@ Each functionality belongs to a certain domain. When looking at the functionalit
      &
     Functionalities
     &
-    Is building block
+    Interchangeable
     \\ \hline
 
     User
@@ -149,7 +132,7 @@ Each functionality belongs to a certain domain. When looking at the functionalit
 
 \small{\textcolor{gray}{* CRUD or Create Read Update Delete refers to the actions that can be called on an object}}
 
-As you can see there are only two building blocks. Those are the Hour Registration and the Shift market. But this does not mean that the other domains should not be modules. If every domain is a module it makes it easy for us to change a basic function if an enterprise wants that.
+As you can see there are only two interchangeable modules. Those are the Hour Registration and the Shift market. But this does not mean that the other domains should not be modules. If every domain is a module it makes it easy for us to change a basic function if an enterprise wants that.
 
 \section{API}
 \label{sec:API}
@@ -189,9 +172,13 @@ Even though the programming language is important most of the time their modular
     \item Spring (Java)
 \end{enumerate}
 
-What is interesting to note is that each framework uses a different programming language. There is one that jumps out of the languages that are used. That is Java. This is because Java is the only one that is statically typed. One of the requirements was being as flexible as possible and this is just not possible when working with a statically typed language. Therefore Spring falls off.
-
-There are four frameworks left. These frameworks will be tested with this use case:
+We will test all of these frameworks against the same use case:
+And there is a employee module with the model having these attributes:
+\begin{itemize}
+    \item Name
+    \item Birth date
+    \item Email
+\end{itemize}
 
 There is a shift module. The model has four attributes
 \begin{itemize}
@@ -201,29 +188,22 @@ There is a shift module. The model has four attributes
     \item Employees
 \end{itemize}
 
-And there is a employee module with the model having these attributes:
-\begin{itemize}
-    \item Name
-    \item Birth date
-    \item Email
-\end{itemize}
-
 The application will provide an api which do a create, list and retrieve(single object) for both shifts and employees.
 
 Last of all the modules should only talk with each other via the \fullref{sec:API}.
 
 All of these tests are done using Windows 10 on a Dell 13 XPS, usage of the git bash terminal and the usage of MySQL as the primary database.
 
-The assumption is made that the database exists where root is the username and password and the web framework used is the name of the database table.
+The assumption is made that the database exists where \texttt{root} is the username and password and the web framework used is the name of the database table.
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
 \begin{itemize}
-    \item \fullref{sec:ExpressImpl}
     \item \fullref{sec:DjangoImpl}
-    \item \fullref{sec:RailsImpl}
     \item \fullref{sec:LaravelImpl}
     \item \fullref{sec:SpringImpl}
+    \item \fullref{sec:RailsImpl}
+    \item \fullref{sec:ExpressImpl}
 \end{itemize}
 
 Rails and Spring were not successful in the support of creating a modular monolith. Django on the other hand is the only framework that supports this type of architecture out of the box. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in database migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like all the other options.
@@ -255,4 +235,4 @@ All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
     \item \fullref{sec:AngularImpl}
 \end{itemize}
 
-From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. Thus the choice goes to Vue.
+From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. So the choice goes to Vue.
