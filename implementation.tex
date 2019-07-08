@@ -198,14 +198,6 @@ The assumption is made that the database exists where \texttt{root} is the usern
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
-\begin{itemize}
-    \item \fullref{sec:DjangoImpl}
-    \item \fullref{sec:LaravelImpl}
-    \item \fullref{sec:SpringImpl}
-    \item \fullref{sec:RailsImpl}
-    \item \fullref{sec:ExpressImpl}
-\end{itemize}
-
 Rails and Spring were not successful in the support of creating a modular monolith. Django on the other hand is the only framework that supports this type of architecture out of the box. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in database migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like all the other options.
 
 \subsection{Frontend}
@@ -228,11 +220,5 @@ The scope of the test is that the frontend application should use our backend si
 \end{itemize}
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
-
-\begin{itemize}
-    \item \fullref{sec:VueImpl}
-    \item \fullref{sec:ReactImpl}
-    \item \fullref{sec:AngularImpl}
-\end{itemize}
 
 From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. So the choice goes to Vue.

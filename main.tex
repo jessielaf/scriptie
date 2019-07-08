@@ -16,7 +16,7 @@
 \setcounter{secnumdepth}{3}
 
 % Create \fullref command
-\newcommand*{\fullref}[1] {\hyperref[{#1}]{\textcolor{blue}{\underline{\ref*{#1} \nameref*{#1}}}}}
+\newcommand*{\fullref}[1] {\hyperref[{#1}]{\ref*{#1} \nameref*{#1}}}
 
 % Create a large quote that is centered
 \newcommand*{\largequote}[1] {\begin{displayquote}\large \center "#1" \end{displayquote}}
@@ -28,9 +28,8 @@
 \usepackage[style=numeric, backend=biber]{biblatex}
 \addbibresource{main.bib}
 
-\title{Modular monolith}
+\title{Converting a monolithic application into a modular architecture}
 
-\author{Jessie Liauw A Fong}
 \author{
   \parbox{.5\textwidth}{\centering
   Jessie Liauw A Fong \\
