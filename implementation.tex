@@ -453,17 +453,45 @@ Even though the second option ties more into the modular monolith architecture, 
 The config that is needed to initialize our modular monolith is:
 \begin{verbatim}
     dest:
-        - src: effe
-            dest: modules/effe
-        - src: shift
-            dest: modules/shi1
+        - src: pages
+          dest: pages
+        - src: module
+          dest: modules
     modules:
-        - name: employees
-            repo: git@github.com:jessielaf/effe
-            version: master
-        - name: shifts
-            repo: git@github.com:jessielaf/effe
-            version: master
+        - name: shift
+          repo: git@github.com:jessielaf/effe-ui-shift
+
 \end{verbatim}
 
-This will clone the components into the \texttt{src/components} and pages into \texttt{src/pages}. This is an one way street. The modules will now only be cloned. But by this logic the modules can also be created from this config. This makes it easy to use in development. Just load a module, change somethings and pull it back up. Thus the assembler also has dissembler. This dissembler looks at the config and based on it, it creates a new folder with the changes made to the directories that are copied by the assembler.
+This will clone the most of the code into the \texttt{src/modules} and pages into \texttt{src/pages}. This is an one way street. The modules will now only be cloned. But by this logic the modules can also be created from this config. This makes it easy to use in development. Just load a module, change somethings and pull it back up. Thus the assembler also has dissembler. This dissembler looks at the config and based on it, it creates a new folder with the changes made to the directories that are copied by the assembler.
+
+The current shift module is intertwined with the change request, availability and shift market modules. The first action is to remove these from the shift module. Next up is the api for the shift module. Because nuxt is used instead of only vue the api looks a bit different:
+\begin{verbatim}
+    export default class Api {
+        static create(axios, object, options = {}) {
+            console.log(object, "not saved");
+            console.error("Implement the create functionality");
+        }
+
+        static update(axios, id, object, options = {}) {
+            console.log(object, "not saved");
+            console.error("Implement the create functionality");
+        }
+
+        static retrieve(axios, id, options = {}) {
+            console.log(id, "not retrieved");
+            console.error("Implement the retrieve functionality");
+        }
+
+        static overview(axios, options = {}) {
+            console.error("Implement the overview functionality");
+        }
+    }
+\end{verbatim}
+
+Now the same command as in the backend can be ran here:
+\begin{verbatim}
+    modad assemble
+\end{verbatim}
+
+Now the application works as normal.
