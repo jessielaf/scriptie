@@ -90,6 +90,7 @@ These are the criteria or leading questions that will be asked to research objec
 \end{figure}
 
 \subsection{Expected Results}
+\label{sec:ExpectedResults}
 
 The results will be the guidelines on which the practical part of this research will be based.
 
@@ -112,13 +113,18 @@ The main question this research will be answering is:
 
 \subsection{Question 1}
 \label{sec:Question1}
-The first question that will be asked is what is the purpose of this question. The first question is about software architecture. How does a software architect create a software architecture. The model can be found in the appendix under Creating a software architecture.
+The first question that will be asked is what is the purpose of this question. The first question is about software architecture. How does a software architect create a software architecture.
+
+\begin{figure}[H]
+	\includegraphics[width=\linewidth]{creating_architecture.png}
+	\caption{How a software architecture is chosen}
+\end{figure}
 
 The thicker red lines show the parts of the model that will be explored in the question. Thus the question is:
 
-\largequote{What was the thought process behind choosing certain implementations for the quality attributes of a software architecture?}
+\largequote{What was the thought process behind choosing a software architecture whilst considering each implementation and its quality attributes?}
 
-This question will explore how a software architect chooses the architecture. This will give more insights into what they consider when choosing an implementations so that their rational can be extracted and taken into consideration.
+This question will explore how a software architect chooses their architecture. This will give more insights into what they consider when choosing an implementation so that their rational can be extracted and taken into consideration.
 
 These are some of the sub questions that will be handled based on this central question
 \begin{itemize}
@@ -128,21 +134,22 @@ These are some of the sub questions that will be handled based on this central q
 \end{itemize}
 
 \subsection{Question 2}
-\largequote{Which software architectures that focus on modularity are available?}
+\label{sec:Question2}
+\largequote{What are the best software architectures that mainly focus on modulairty?}
 
-This question focuses on the architecture that are available. The knowledge of how a software architect chooses the architecture is answered in the previous question \fullref{sec:Question1}. In this question there will be a search on the architectures that are available and how they came to be.. Because of the new perspective gotten from the previous question there can be a more nuanced look at the architecture.
+This question focuses on the architecture that are available. The knowledge of how a software architect chooses the architecture is answered in the previous question \fullref{sec:Question1}. In this question there will be a search on the architectures that are available and how they came to be.. Because of the new perspective gained in the previous question there can be a more nuanced choice of architecture.
 
-Here are some of the sub questions:
+Sub questions:
 \begin{itemize}
-	\item Which are the upsides and downsides of each architecture?
-	\item On what level is the documentation and research surrounding the architecture?
+	\item What are the up- and downsides of each architecture?
+	\item How mature is the documentation and research surrounding the architecture?
 	\item Which architecture implements the quality attributes that EFFE deemed important best?
 \end{itemize}
 
 \subsection{Question 3}
 \largequote{Which implementations are there of the solutions provided for modular architecture?}
 
-The solutions or architectures provided from question 2 will have implementations or frameworks. It is important to see which implementation implements a certain choice of the architecture in what way. Other questions that will be answered are:
+The solutions or architectures provided from \fullref{sec:Question2} will have implementations or frameworks. This question will reflect on how these implementations or frameworks implement a certain feature and why. Other questions that will be answered are:
 \begin{itemize}
 	\item How mature is the architecture in contrast to the implementations?
 	\item How does the language chosen in the implementation reflect to the architecture?
@@ -152,11 +159,18 @@ The solutions or architectures provided from question 2 will have implementation
 
 \subsection{Question 4}
 
-\largequote{What are the key elements of in which a software architecture will influence the deployment lane?}
+\largequote{What are the key elements of which a software architecture will influence the deployment lane?}
 
 This question hints at the relation between a software architecture and the deployment lane. Right now there is a limited view on how the deployment lane should be and how it can be. In order for the practical research to work there needs to be an answer to these questions:
 \begin{itemize}
 	\item Which infrastructure fits best with my chosen architecture?
 	\item What are the costs of different infrastructures?
-	\item How does the infrastructure implement our quality attributes
+	\item How does the infrastructure implement our quality attributes?
 \end{itemize}
+
+\section{Methods}
+
+This methods used to conduct this research will be explained below.
+
+\subsection{Interviews}
+The interviews will be conducted with prestated questions. These questions may require follow up questions to get a more detailed view. All of the interviews will be recorded and typed out in the \fullref{sec:Interviews}.

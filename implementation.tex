@@ -1,16 +1,14 @@
 \chapter{Implementation of the architecture}
 
-The chosen implementation is modular monolith. Let’s go over the characteristics of modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles can be taken from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api on which the modules talk.
+The chosen implementation is modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles can be taken from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api via which the modules talk.
 
 \section{Characteristics}
 
-Domain driven design was coined by Eric Evans in his book Domain driven design \cite{domainDrivenDesign}. Eric Evans himself said that there is no real standard for domain driven design. Let’s first define what a domain is.
+Domain driven design was coined by Eric Evans in his book Domain driven design \cite{domainDrivenDesign}. Eric Evans himself said that there is no real standard for domain driven design but there is one for a domain:
 
 \largequote{A domain is a field of study that defines a set of common requirements, terminology, and functionality for any software program constructed to solve a problem in the area of computer programming, known as domain engineering. The word domain is also taken as a synonym of application domain It is also seen as a sphere of knowledge \cite{domainDefinition}}
 
-What is important to note is that each module is linked to a domain but there is a distinct difference between only implementing domain driven design and modular monolith. The main distinct feature is that in a modular monolith the module does know that another module exists but not the contents of this module. This is not the case with domain driven design.
-
-The difference that this makes it that each module should be able to talk with each other and thus there need to be an api over which each module can talk with each other.
+What is important to note is that each module is linked to a domain but there is a distinct difference between only implementing domain driven design and modular monolith. A modular architecture is part of the software architecture of the application while domain driven design part is of the software design. The difference between these two is that software architecture about converting characteristics or quality attributes into a structured solution where as software design is more about the responsibility each module or section has inside the architecture. \cite{softwareArchitectureDefinition}
 
 \section{Current situation}
 
@@ -22,8 +20,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     Domain
      &
     Functionalities
-    &
-    Interchangeable
     \\ \hline
 
     User
@@ -32,8 +28,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
         \item Reset password
         \item User CRUD*
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Shift
@@ -42,8 +36,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
         \item Shift overview
         \item Create shift
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Skill
@@ -51,8 +43,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Skill CRUD*
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Store
@@ -60,8 +50,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Store CRUD*
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Client
@@ -69,8 +57,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Client CRUD*
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Authentication
@@ -79,8 +65,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
         \item Login
         \item Reset password
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Schedule
@@ -88,8 +72,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Generate schedule
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Hour registration
@@ -97,8 +79,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Hour registration
     \end{compactitem}
-    &
-    Yes
     \\ \hline
 
     Shift market
@@ -106,8 +86,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Shift market
     \end{compactitem}
-    &
-    Yes
     \\ \hline
 
     Shift change
@@ -116,8 +94,6 @@ This architecture will apply to the application of EFFE. Below is a list of the 
         \item Switching shifts
         \item Calling in sick
     \end{compactitem}
-    &
-    No
     \\ \hline
 
     Company
@@ -125,14 +101,12 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \begin{compactitem}
         \item Managing company settings
     \end{compactitem}
-    &
-    No
     \\ \hline
 \end{tabularx}
 
 \small{\textcolor{gray}{* CRUD or Create Read Update Delete refers to the actions that can be called on an object}}
 
-As you can see there are only two interchangeable modules. Those are the Hour Registration and the Shift market. But this does not mean that the other domains should not be modules. If every domain is a module it makes it easy for us to change a basic function if an enterprise wants that.
+An example of a use case where it is needed to replace one of these modules is if a big client comes to EFFE but requests something small that is different in the user module. With a modular monolith we can create this other module and place it inside the application and it will work the same as the normal application.
 
 \section{API}
 \label{sec:API}
@@ -157,7 +131,7 @@ It is obvious why programming languages will be researched but maybe not why the
 
 \largequote{A web framework is a software tool that provides a way to build and run web applications. As a result, you don’t need to write code on your own and waste time looking for possible miscalculations and bugs. \cite{webFrameworkDefinition}}
 
-It is a industry standard to use web frameworks. It simply makes life easier. But which web framework? The comparison will be of the front- and backend frameworks and languages. There will not be a research of the whole framework or language. The only thing that will be researched is the modularity of the framework or language.
+It is a industry standard to use web frameworks. It simply makes life easier. But which web framework? The comparison will be of the front- and backend frameworks and languages. There will not be a research of the whole framework or language. The focus of the research will lay on the compatibility of the framework with the modular monolith architecture.
 
 \subsection{Backend}
 \label{sec:BackendImplementation}
@@ -172,15 +146,16 @@ Even though the programming language is important most of the time their modular
     \item Spring (Java)
 \end{enumerate}
 
-We will test all of these frameworks against the same use case:
-And there is a employee module with the model having these attributes:
+All frameworks will be tested against the same use case:
+
+The first domain is employees. An employee has:
 \begin{itemize}
     \item Name
     \item Birth date
     \item Email
 \end{itemize}
 
-There is a shift module. The model has four attributes
+The second domain is shifts. A shift has four attributes
 \begin{itemize}
     \item Title
     \item Start date
@@ -188,25 +163,26 @@ There is a shift module. The model has four attributes
     \item Employees
 \end{itemize}
 
-The application will provide an api which do a create, list and retrieve(single object) for both shifts and employees.
+The application will provide an api which can do a create, list and retrieve(single object) call for both shifts and employees.
 
 Last of all the modules should only talk with each other via the \fullref{sec:API}.
 
-All of these tests are done using Windows 10 on a Dell 13 XPS, usage of the git bash terminal and the usage of MySQL as the primary database.
+All of these tests are done using Windows 10 on a Dell 13 XPS, using the git bash terminal and the usage of MySQL as the primary database.
 
-The assumption is made that the database exists where \texttt{root} is the username and password and the web framework used is the name of the database table.
+The assumption is made that the database exists where \texttt{root} is the username and password. The web framework used is the name of the database table.
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
-Rails and Spring were not successful in the support of creating a modular monolith. Django on the other hand is the only framework that supports this type of architecture out of the box. This is already a lot of reasoning to chose this framework. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in database migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like all the other options.
+Rails and Spring were not successful in the support of creating a modular monolith. Django on the other hand is the only framework that supports this type of architecture out of the box. This already gives the edge to django as the framework to use. But what amplifies this choice is the amount of code that is needed to write in order for the test to work was minimal in comparison to other frameworks. Django was also the only framework with build-in database migration generation. This allows the user to create migrations based on the model. This is very important because it eliminates human error when creating migrations by hand like all the other options.
 
 \subsection{Frontend}
+\label{sec:Frontend}
 
-Frontend is a very fast moving section of software engineering. On october 8th 2010 \cite{angularJs} the first big frontend framework was published called AngularJs. This framework has been maintained by google and received a lot of traction. Three years later at Js ConfUS Jordan Walke of Facebook gave a introduction to React \cite{reactJs}. This changed the frontend world. Mainly because react was not a framework but a library. Which means that you are able to include it in your existing project where with angular you solely have angular application. In February 2014 the last big javascript framework would be released called Vue \cite{vueJs}. Vue is often seen as the perfect blend between React and Angular. This is partly because Vue can be used as a library and a framework.
+Frontend is a very fast moving lane in software engineering. On october 8th 2010 \cite{angularJs} the first big frontend framework was published called AngularJs. This framework has been maintained by google and received a lot of traction. Three years later at Js ConfUS Jordan Walke of Facebook gave a introduction to React \cite{reactJs}. This changed the frontend world. Mainly because react was not a framework but a library. Which means that you are able to include it in your existing project where with angular you solely have angular application. In February 2014 the last big javascript framework would be released called Vue \cite{vueJs}. Vue is often seen as the perfect blend between React and Angular. This is partly because Vue can be used as a library and a framework.
 
 These three frameworks / libraries where chosen because they are the most used and the most loved by the javascript community \cite{allFrontendFrameworks}.
 
-First off there is a need to define what should be in the api of each module in the frameworks. There is only one actual layer the modules should export and that is the service. The service of a model as explained in \fullref{sec:BackendImplementation}. They should export all the CRUD functionalities.
+First off there is a need to define what should be in the api of each module in the frameworks. There is only one actual layer the modules should export and that is the service. A service is object which translate the rest api into an object api. They should export all the CRUD functionalities.
 
 The scope of the test is that the frontend application should use our backend site created in \fullref{sec:BackendImplementation}. So the application should be able to do:
 
@@ -221,4 +197,273 @@ The scope of the test is that the frontend application should use our backend si
 
 All the code can be found at \url{https://github.com/jessielaf/modular_monolith}
 
-From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. So the choice goes to Vue.
+From the implementations it is obvious that angular is harder to implement than vue or react. This is a combination of typescript and dependency injection which angular uses. Vue and react on the other hand are really similar. But there are a few differences that makes vue easier to use than react. The first one is the two way binding of vue \cite{vueTwoWay}. React does not have this feature. What this means is that you have to write your own handler for every different input. Another difference is that with Vue the router is included. Thus the vue router is supported by the official team. React does not have a router build in. The best frontend framework for the modular monolith is Vue.
+
+\section{Building the modular monolith}
+\label{sec:BuildingModularMonolith}
+
+The application consists of multiple modules and these modules need to be assembled before the application can be used. This is what is called building the modular monolith. Assembling the modules should be easy on build when the application is being deployed but also when a developer is cloning the application. The best option is to create a command that will clone all the modules. This can be done per project and with a cli (command line interface) tool or with code inside of the application itself. The best option is the cli because this gives common interface that can be used in multiple projects. The config for the modules and the projects will look the same. An example of such a system is a dependency managers. Managers such as \href{https://yarnpkg.com/en/}{Yarn} or \href{https://getcomposer.org/}{Composer}. These managers use a JSON file to define which versions are used of which dependencies or in this case modules. The config files for a modular monolith could be more stripped down because the requirements are less when comparing it to a full functional dependency manager.
+
+There are two things all dependency managers have are \textbf{Name of the module} and \textbf{Version}. What is unique to the modular monolith situation is that our name can be the same but where the module is \textbf{located} from can be different. Because there is a possibility that a specific module is required with a different version. This is all module level but there should also some project level settings. Such as the \textbf{directory} where the modules should be copied to.
+
+\begin{verbatim}
+    copy_dir: modules
+    modules:
+      employees:
+        repo: git@github.com:jessielaf/employees-module
+        version: master
+      shifts:
+        repo: git@github.com:jessielaf/shifts-module
+        version: 1.0
+\end{verbatim}
+
+In this example the employees module will be retrieved from git@github.com:jessielaf/employees-module with the latest version and will be copied to \texttt{modules/employees}. The version of the api is not stated because this will default to latest.
+
+An example how the code could work is below:
+\begin{verbatim}
+    import yaml
+    from git import Repo
+
+
+    with open("example_config.yml", "r") as stream:
+        config = yaml.safe_load(stream)
+        modules = config['modules']
+        copy_dir = config['copy_dir']
+
+        for name, module in modules.items():
+            repo = Repo.clone_from(module['repo'], f"{copy_dir}/{name}")
+            repo.git.checkout(module['version'])
+\end{verbatim}
+
+Of course this is a very stripped down version of what can be. The best upside to this solution is that it can be the same for frontend and backend. The other option is to add the modules with the use of the framework. This makes it easier to use for new developers because they don't need to install a plugin or dependency that does this. But the code for the frontend and the backend need to be managed and in all the repos. This makes it that the frontend config can be different from the backend one and it creates a harder to understand config. This is why the choice goes to the one config meets all option.
+
+\section{Deployment lane}
+
+As mentioned earlier the architecture that has been chosen for an application can make a big impact on the deployment lane. This is the reason why this section is chosen as an important piece for this research. But the choice of architecture came down to a solution where the deployment lane should not change or only change with building the application as explained in \fullref{sec:BuildingModularMonolith} this can be done with one commando. The deployment lane can thus stay virtually the same as before for EFFE.
+
+\section{Implementing it in the application}
+
+\subsection{Backend}
+
+First of all the module api should be added. This can be done in \texttt{effe/api} and looks like this:
+\begin{verbatim}
+    from typing import Any
+    from dataclasses import dataclass
+
+
+    @dataclass
+    class ModuleAPI:
+        model: Any
+        serializer: Any
+        serializer_per_role: Any = None
+\end{verbatim}
+
+The first module that will be converted is shifts. This is because this is the biggest module. If this module can be converted all of them can be. The first thing to do is replace a direct link to the model to a link via the module. This means
+\begin{verbatim}
+    form shift.model import Shift
+\end{verbatim}
+
+Can be replaced with
+\begin{verbatim}
+    from shift.api import api as shift
+\end{verbatim}
+
+The use of the model looked like this:
+\begin{verbatim}
+    Shift.objects.all()
+\end{verbatim}
+
+And can be changed to:
+\begin{verbatim}
+    shift.model.objects.all()
+\end{verbatim}
+
+For the serializers the same principles apply.
+\begin{verbatim}
+    from shift.serializers.base import BaseSerializer
+\end{verbatim}
+
+Can be changed to:
+\begin{verbatim}
+    from shift.api import api as shift
+\end{verbatim}
+
+So when referring to the shift serializer:
+\begin{verbatim}
+    shifts = BaseSerializer()
+\end{verbatim}
+
+To:
+\begin{verbatim}
+    shifts = shift.serializer()
+\end{verbatim}
+
+The first problem that this created is that you cannot import a serializer into a model. This happens because python imports all classes even if it does not use one. Apparently this creates a circular dependency. When python has a circular dependency it gives a \texttt{ImportError: cannot import name} error. There is an open question on stackoverflow that has not been answered yet \cite{circularDependencyQuestion}.
+
+The dependencies of the api need to be lazy loaded. There are two options to do this. The first one is to overwrite a function in the api. The ModuleApi would look like:
+\begin{verbatim}
+    from abc import abstractmethod
+
+
+    class ModuleAPI:
+        @abstractmethod
+        def serializer(self):
+            pass
+
+        @abstractmethod
+        def model(self):
+            pass
+\end{verbatim}
+
+The api would look like this:
+\begin{verbatim}
+    from effe.api import ModuleAPI
+
+
+    class Api(ModuleAPI):
+        def serializer():
+            from shift.serializers.api.base import BaseSerializer
+
+            return BaseSerializer
+
+        def model():
+            from shift.models import Shift
+
+            return Shift
+
+
+    api = Api()
+\end{verbatim}
+
+The other method is string based imports. Where the ModuleApi would look like this:
+\begin{verbatim}
+    import importlib
+    from typing import Dict
+
+
+    class ModuleAPI:
+        _model: str
+        _model_package: str
+        _serializer: str
+        _serializer_per_role: Dict[str, str]
+
+        def __init__(
+            self,
+            model_package: str,
+            model: str,
+            serializer: str,
+            serializer_per_role: Dict[str, str] = {},
+        ):
+            self._model = model
+            self._model_package = model_package
+            self._serializer = serializer
+            self._serializer_per_role = serializer_per_role
+
+        def model(self):
+            return getattr(importlib.import_module(self._model_package), self._model)
+
+        def serializer(self):
+            return importlib.import_module(self._serializer).BaseSerializer
+\end{verbatim}
+
+And the api:
+\begin{verbatim}
+    from effe.api import ModuleAPI
+
+    api = ModuleAPI("shift.models", "Shift", "shift.serializers.base")
+\end{verbatim}
+
+The first options is better. This is because the model is imported directly this means that when renaming models or paths some IDE's will pick it up themselves. It is also more explicit and pylinters will pick up if a module cannot be imported.
+
+Switching to the new api was easy until the user shift view needed to be changed. This view shows the the shifts of one user and the shift change requests of a user. This means that inside the shift serializer the shift change request serializer should be applied. But to make sure there are no circular dependencies this can't be done inside the \texttt{BaseSerializer} of the shift module. So there needs to be a function on which fields need to be serialized. Thus the api needs to be rewritten.
+
+The django rest framework uses a private field \texttt{\_declared\_fields} that contains the nested serializers. The new api looks like this:
+\begin{verbatim}
+    from abc import abstractmethod
+    from typing import Dict
+
+    from rest_framework.serializers import Serializer
+
+
+    class ModuleAPI:
+        @abstractmethod
+        def _serializer(self):
+            pass
+
+        @abstractmethod
+        def model(self):
+            pass
+
+        def serializer(self, serializers: Dict[str, Serializer] = None):
+            base_serializer = self._serializer()
+
+            if serializers:
+                for name, serializer in serializers.items():
+                    base_serializer._declared_fields[name] = serializer
+                    base_serializer.Meta.fields.append(name)
+
+            return base_serializer
+\end{verbatim}
+
+In the shift overview the field shiftchangerequest\_set should be serialized by the shift change request serializer. The serializer looked like this:
+\begin{verbatim}
+    serializer_class = serializers.ShiftOverviewSerializer
+\end{verbatim}
+
+And with the modular monolith looks like this:
+\begin{verbatim}
+    serializer_class = Shift.serializer(
+        {
+            "shift_change_request": ShiftChange.serializer()(
+                read_only=True, source="shiftchangerequest_set", many=True
+            )
+        }
+    )
+\end{verbatim}
+
+The class \texttt{serializers.ShiftOverviewSerializer} can be removed because it is not used anywhere anymore.
+
+To implement this there needs to be a creation of the config in \texttt{monoa.yml} which looks like this:
+\begin{verbatim}
+    dest: .
+    modules:
+        - name: shift
+            repo: git@github.com:jessielaf/effe-shift
+            version: master
+\end{verbatim}
+
+Then push the shift module to github at \url{https://github.com/jessielaf/effe-shift}. And remove the shift from the base application and add shift to the .gitignore so github does not push the module to the base applications git. Now this command can be ran
+\begin{verbatim}
+    modad assemble
+\end{verbatim}
+
+And now shift is pulled from the github repository and in the application.
+
+\subsection{Frontend}
+
+The first module that was implemented in the backend was the shifts module. But EFFE uses Nuxt.js as a framework on top of Vue. Nuxt creates the routing via the folder structure. But this folder structure is decoupled from the business logic. There are two options to fix this:
+
+\begin{itemize}
+    \item \textbf{Adding two directories}: The API as described in \fullref{sec:API} needs to be changed so it will also handle multiple directories where it should copy to
+    \item \textbf{Rewriting it to only Vue}: As shown in \fullref{sec:Frontend} Vue is capable of having a modular monolith architecture. But to get this there needs to be a rewrite of the whole frontend application. There is a lot that can be refactored but there are also a lot of nuxt functionalities the application uses.
+\end{itemize}
+
+Even though the second option ties more into the modular monolith architecture, the first option is better for a proof of concept. The code of the assembler can be found here \url{https://github.com/jessielaf/modad}
+
+The config that is needed to initialize our modular monolith is:
+\begin{verbatim}
+    dest:
+        - src: effe
+            dest: modules/effe
+        - src: shift
+            dest: modules/shi1
+    modules:
+        - name: employees
+            repo: git@github.com:jessielaf/effe
+            version: master
+        - name: shifts
+            repo: git@github.com:jessielaf/effe
+            version: master
+\end{verbatim}
+
+This will clone the components into the \texttt{src/components} and pages into \texttt{src/pages}. This is an one way street. The modules will now only be cloned. But by this logic the modules can also be created from this config. This makes it easy to use in development. Just load a module, change somethings and pull it back up. Thus the assembler also has dissembler. This dissembler looks at the config and based on it, it creates a new folder with the changes made to the directories that are copied by the assembler.
