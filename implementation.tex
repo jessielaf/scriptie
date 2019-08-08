@@ -1,6 +1,6 @@
 \chapter{Implementation of the architecture}
 
-The chosen implementation is modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is a domain driven design where the modules can be developed separately. Thus most of the principles can be taken from domain driven design. But because the modules do not know what other modules contain. Thus there should be a kind of api via which the modules talk.
+The chosen implementation is modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is based on domain driven design where the modules can be developed separately. Most of the principles can be taken from domain driven design. But in a modular monolith the modules do not know what other modules contain. This is possible over an API.
 
 \section{Characteristics}
 
@@ -8,11 +8,11 @@ Domain driven design was coined by Eric Evans in his book Domain driven design \
 
 \largequote{A domain is a field of study that defines a set of common requirements, terminology, and functionality for any software program constructed to solve a problem in the area of computer programming, known as domain engineering. The word domain is also taken as a synonym of application domain It is also seen as a sphere of knowledge \cite{domainDefinition}}
 
-What is important to note is that each module is linked to a domain but there is a distinct difference between only implementing domain driven design and modular monolith. A modular architecture is part of the software architecture of the application while domain driven design part is of the software design. The difference between these two is that software architecture about converting characteristics or quality attributes into a structured solution where as software design is more about the responsibility each module or section has inside the architecture. \cite{softwareArchitectureDefinition}
+What is important to note is that each module is linked to a domain but there is a distinct difference between only implementing domain driven design and modular monolith. A modular monolith is part of the software architecture of the application while domain driven design part is of the software design. The difference between is that software architecture about converting characteristics or quality attributes into a structured solution where as software design is more about the responsibility each module or section, inside the architecture, has. \cite{softwareArchitectureDefinition}
 
 \section{Current situation}
 
-This architecture will apply to the application of EFFE. Below is a list of the functionalities of the current application. This is in order to paint a good picture of the current situation.
+The table below is to paint a good picture of the current application and situation, map which domains there are inside the EFFE application and which functionalities they possesses.
 
 \begin{tabularx}{\linewidth}{|>{}X|>{}X|>{}X|}
     \hline
@@ -104,9 +104,9 @@ This architecture will apply to the application of EFFE. Below is a list of the 
     \\ \hline
 \end{tabularx}
 
-\small{\textcolor{gray}{* CRUD or Create Read Update Delete refers to the actions that can be called on an object}}
+\small{\textcolor{gray}{* CRUD or Create Read Update Delete refers to the actions that can be called on an object via the rest API}}
 
-An example of a use case where it is needed to replace one of these modules is if a big client comes to EFFE but requests something small that is different in the user module. With a modular monolith we can create this other module and place it inside the application and it will work the same as the normal application.
+An example of a use case where it is needed to replace one of these modules is if a big client comes to EFFE but requests something small that should be different in the user module. With a modular monolith we can create this other module and place it inside the application and it will work the same as the normal application.
 
 \section{API}
 \label{sec:API}
@@ -121,17 +121,19 @@ Therefore the first attribute defined in our api is the \textbf{model} itself.
 
 Microservices talk with each other via a protocol. The most used protocols are HTTP, TCP or AMQP \cite{microservicesAPI}. What all of these protocols have in common is that they return a serialized version of the response. Most of the time in JSON.
 
-Commonly in web frameworks there is something used like a dataclass or a serializer. This shows how an object will be serialized into a JSON object and send back and forth via http. Thus if the api of a module in the modular monolith can expose such a serializer the application can serialize all the foreign keys the module's model has. But when working with the application of EFFE the company found that each user role may require a other specific serializer. For example: EFFE has three roles: the employment agency employee, the client and the temp worker. If the client and the temp worker want to retrieve the shifts the client also gets the users in that shift while the temp worker only sees the general data of the shift. This is so that temp workers won't have the biased in taking shifts with people they like or vise versa.
+Commonly in web frameworks there is something used called a dataclass or a serializer. This class can convert an object into JSON or any other content type. Thus if the api of a module in the modular monolith can expose such a serializer the application can serialize all the foreign keys the module's model has. But when working with the application of EFFE the company found that each user role may require a other specific serializer. For example: EFFE has three roles: the employment agency employee, the client and the temp worker. If the client and the temp worker want to retrieve the shifts the client also gets the users in that shift while the temp worker only sees the general data of the shift. This is so that temp workers won't have the biased in taking shifts with people they like or vise versa.
 
 Therefore it is important to note that each role should have a specific serializer. So in the API there should be \textbf{base serializer} and the option to change the \textbf{serializer by role}.
 
 \section{Programming language and Web framework}
 
-It is obvious why programming languages will be researched but maybe not why there is a need for a web framework. As mentioned before in this chapter most of the web applications use a web framework.
+A web framework is:
 
-\largequote{A web framework is a software tool that provides a way to build and run web applications. As a result, you don’t need to write code on your own and waste time looking for possible miscalculations and bugs. \cite{webFrameworkDefinition}}
+\largequote{A software tool that provides a way to build and run web applications. As a result, you don’t need to write code on your own and waste time looking for possible miscalculations and bugs. \cite{webFrameworkDefinition}}
 
 It is a industry standard to use web frameworks. It simply makes life easier. But which web framework? The comparison will be of the front- and backend frameworks and languages. There will not be a research of the whole framework or language. The focus of the research will lay on the compatibility of the framework with the modular monolith architecture.
+
+The reason the focus lays on the web framework is because the modularity mostly comes from the framework. Most popular programming languages can do the same things when used right. The framework decides how the language is used and also how it reacts to modularity.
 
 \subsection{Backend}
 \label{sec:BackendImplementation}

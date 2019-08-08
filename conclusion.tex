@@ -1,3 +1,14 @@
 \chapter{Conclusion}
 
-As mentioned in \fullref{sec:ExpectedResults} each of th
+After the introduction the research ranks the quality attributes. This is done in order to rank the architectures. These architectures where modular monolith, miniservices and microservices. These are the architectures that focus most on modularity. The rankings of the architectures were:
+\begin{enumerate}
+  \item Modular monolith
+  \item Miniservices
+  \item Microservices
+\end{enumerate}
+
+This was because modular monolith focusses on modularity while still being able to be developed by a small team with limited resources. This is amplified when looking at complexity and costs. This is where the modular monolith architecture excelled. Because it does not use service discovery the complexity is way lower. An side effect of this is that it also lowers the costs. The service discovery together with a orchestrated can already ramp up the costs and modular monolith is not dependent on both.
+
+The best backend framework for the modular monolith is Django. This is because Django by design already implements domain driven design. A modular monolith decouples it modules by domain. So a framework that has such a functionality built in already has a advantage. The other feature of Django that Rails, Spring, Express and Laravel did not have out of the box was migration generation. This feature makes it easy for the developer to create migrations without human error that may be involved.
+
+For frontend Vue was the best framework. Both Vue and React were easy to implement the modular monolith in but vue has two way binding out of the box. In react there was a need to write these two way bindings for every different input. Angular uses dependency injection. In order to make this work smoothly with the api of the modular monolith a lot of code had to be written per module.
