@@ -5,25 +5,25 @@ This chapter will view what goes into choosing a software architecture. What sho
 
 A software architecture is:
 
-\largequote{Software architecture is the process of converting software characteristics such as flexibility, scalability, feasibility, reusability, and security into a structured solution that meets the technical and the business expectations. \cite{softwareArchitectureDefinition}}
+\largequote{The process of converting software characteristics such as flexibility, scalability, feasibility, reusability, and security into a structured solution that meets the technical and the business expectations. \cite{softwareArchitectureDefinition}}
 
 \section{Priorities}
 
-As mentioned in the definition of software architecture \fullref{sec:ChoosingArchitecture} a software architecture looks at the characteristics as flexibility, scalability, ect. These characteristics and their sub characteristics are defined by ISO 25010 \cite{iso25010}.
+As mentioned in the definition of software architecture \fullref{sec:ChoosingArchitecture} a software architecture looks at the characteristics as flexibility, scalability, ect. These characteristics and their sub characteristics are defined by ISO 25010 \cite{iso25010}. This is the standard that will be used troughout the research.
 
-It is important to state the order in which EFFE values these quality attributes. Every decision will be based on this order and will be rationalized by this order.
+It is important to state the order in which EFFE values these quality attributes. Every decision will be based and rationalized by this order.
 
 As mentioned in \fullref{sec:Intention} the first point points out the modularity and the interchangeability of these building blocks. The \textbf{maintainability} quality attribute has reusability and modularity as its sub characteristic. Thus is this the first focus of the software architecture.
 
-The second focus is \textbf{compatability}. Compatibility is the degree in which a product, system or component can exchange information with other products, systems or components, and/or perform its required functions, while sharing the same hardware or software environment \cite{iso25010}.
+The second focus is \textbf{compatability}. Compatibility is the degree in which a product, system or component can exchange information with other products, systems or components, and/or perform its required functions, while sharing the same hardware or software environment \cite{iso25010}. This is directly linked with the modularity of the system.
 
-As mentioned in first and second point in \fullref{sec:Intention} the functionality may be shared between building blocks. But each building block should be able to function without the other building blocks. This is why \textbf{functional sustainability} will be the third focus.
+As mentioned in first and second point in \fullref{sec:Intention} the functionality may be shared between building blocks. But each building block should be able to function without other building blocks. This is why \textbf{functional sustainability} will be the third focus.
 
-With such a loosely coupled system \textbf{security} becomes harder to deal with. Because every functionality is loosely coupled it means that the functionalities will talk with each other over an open network or a closed network. If they talk on an open network the security needs to be checked constantly. On a closed network measures need to be taken to keep the network closed. That is the reason on why security is our fourth focus.
+With such a loosely coupled system \textbf{security} becomes harder to deal with. Because every functionality is loosely coupled it means that the functionalities may talk with each other over a network instead of via code. If it is an open network the security needs to be checked constantly. On a closed network measures need to be taken to keep the network closed. That is the reason why security is our fourth focus.
 
 After running through these four quality attributes we have an application that can function without being overtaken by unintentional users. But in order to keep the intentional users satisfied the services or functions need to be reliable. Thus \textbf{reliability} will be our fifth focus.
 
-If something is reliable it is not automatically functional. If the site is not responding as fast as possible there is a chance that the user will leave the website. A study conducted in 2018 by Google showed that there is a 58\% bounce rate when the load time is between 3 to 5 seconds \cite{bounceRateDifference}. Thus in order for our users to be actually able to use the application in a responsive manner \textbf{performance efficiency} becomes our sixth focus.
+If something is reliable it does not mean that it is usable. If the application is not responding as fast as possible there is a chance that the user will leave the application. A study conducted in 2018 by Google showed that there is a 58\% bounce rate when the load time is between 3 to 5 seconds \cite{bounceRateDifference}. Thus in order for our users to actually be able to use the application in a responsive manner \textbf{performance efficiency} becomes our sixth focus.
 
 There are only two quality attributes left. Portability and usability. Normally there is a good argument about why usability would be higher in the rankings. But because this research more focussed on the architecture of the application and not UX or UI \textbf{portability} will be our seventh focus and \textbf{usability} our eighth.
 
