@@ -4,20 +4,16 @@
 A modular architecture:
 \largequote{Modular design or “modularity in design” is a design approach that subdivides a system into smaller parts called modules or skids that can be independently created and then used in different systems. A modular system is characterized by functional partitioning into discrete scalable and reusable modules, rigorous use of well-defined modular interfaces and making use of industry standards for interfaces. \cite{whatIsModularArchitecture}}
 
-When researching famous architectures in software there are a few examples of non modular architectures.
-
-An example of such an architecture is the layered architecture. In the image below is shown how such an architecture operates.
+When researching famous architectures in software there are a few examples of non modular architectures. Such an architecture is the layered architecture. In the image below is shown how such an architecture operates.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{layered_architecture.png}
 	\caption{Layered architecture \cite{layeredArchitecture}}
 \end{figure}
 
-As can be seen in this image the architecture is layered based on responsibilities. This will conclude in each layer having its own purpose. As shown in the image, the layers can talk with each other but they are intertwined. This means that a class or object in the presentation layer can talk to the same business layer object as another presentation layer class. Thus the objects are highly coupled.
+As can be seen in this image the architecture is layered based on responsibilities. This will conclude in each layer having its own purpose. As shown in the image, the layers can talk with each other but they are intertwined. This means that a class or object in the presentation layer can talk to the same business layer object as another presentation layer class. This concludes in the objects being highly coupled.
 
-So why is this architecture so different from a modular architecture? Well as the name suggests a modular architecture is based upon modules.
-
-The definition of a module is:
+A modular architecture is based upon modules. A module is:
 \largequote{deployable, manageable, natively reusable, composable, stateless unit of software thatprovides a concise interface to consumers” \cite{moduleDefinition}}
 
 This is eerily similar as the description of what this research calls building blocks in \fullref{sec:TheProblem}
@@ -26,7 +22,7 @@ This is eerily similar as the description of what this research calls building b
 \label{sec:Architectures}
 
 \subsection{Microservices}
-If most software engineers in 2019 think of a modular software architecture the first architecture that comes to mind is microservices. In the last years microservices has seen a surge in usage. One of the most biggest companies that showed the effectiveness of microservices is Netflix.
+If most software engineers in 2019 think of a modular software architecture the first architecture that comes to mind is microservices. In the last years microservices has seen a surge in usage. One of the most biggest companies that showed its effectiveness is Netflix.
 
 \subsubsection{Definition}
 The best way to describe a microservice is:
@@ -49,23 +45,23 @@ Now that there is a clear understanding of what microservices are and which prin
 they should follow. Some best practices can be pinpointed.
 
 \subsubsection{Best practices}
-The first best practices is to \textbf{create a seperate datastore} for each microservice. First of all not every datastore fits every service. It may be that a message service may get more efficiency from a NoSQL database and a user service from a SQL database. A benefit stemming from this is that microservices makes you think about each datastore used for each service and why that datastore is the correct one for that specific service \cite{microservicesNetflix}.
+The first best practices is to \textbf{create a seperate datastore} for each microservice. First of all not every datastore fits every service. It may be that a message service may get more efficiency from a NoSQL database and a user service from an SQL database. A benefit stemming from this is that microservices makes you think about each datastore used for each service and why that datastore is the correct one for that specific service \cite{microservicesNetflix}.
 
-When creating a separate datastore for each service you run the risk of data inconsistency. For example, you have a user service which stores the user id. Also you have a message service which stores the message and the user id to whom the message is send. If a user gets deleted in the user service this should reflect in the message service. But with microservices this is not automatically the case because each service has its own datastore and therefore the foreign keys are not native and thus will not be updated or give a warning.
+When creating a separate datastore for each service you run the risk of data inconsistency. For example, three is an user service which stores the user id. There is also a message service which stores the message and the user id to whom the message is send. If a user gets deleted in the user service, this should reflect in the message service. But with microservices this is not automatically the case because each service has its own datastore and therefore the foreign keys are not native and thus will not be updated or give a warning.
 
 Another best practices is \textbf{writing documentation} \cite{microservicesBestPractice} for each microservice. Most importantly about how they should be used and which interface it uses. For example, when a new service is created next to our messaging and user service called file service which handles the files send in the messages. This service should know how to communicate with the message service. This makes it easier for the new services to connect to the existing services.
 
 Another challenge with microservice is the \textbf{monitoring} \cite{microservicesBestPractice} of the services. Because it is not known how many services are online it is important to know when they are online and what they log. For example, our messaging service is used a lot and duplicates itself. This then means that the logging of the new service needs to be picked up by your monitoring system in order to view the whole picture of the running application.
 
 \subsection{Miniservices}
-Besides microservices which other architectures are there? One of the “new” ones is miniservices. The reason new is between quotes is because most companies that implement microservices actually implement miniservices. The difference between microservices and miniservices is best described in the image below:
+One of the “new” ones is miniservices. The reason new is between quotes is because most companies that implement microservices actually implement miniservices. The difference between microservices and miniservices is best described in the figure below:
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{miniservices.png}
 	\caption{Miniservices architecture \cite{miniservicesDefinition}}
 \end{figure}
 
-Miniservices are essentially an architecture based on breaking specific rules of microservices \cite{miniservicesOrigin}. As shown in the picture the biggest difference between microservices and miniservices are that microservices are actual features being decoupled and miniservice is about decoupling a domain of features.
+Miniservices is essentially an architecture based on breaking specific rules of microservices \cite{miniservicesOrigin}. As shown in the picture the biggest difference between microservices and miniservices is that microservices are actual features being decoupled and miniservice is about decoupling a domain of features.
 
 This means that each service may contain multiple features but all of the features should be linked to the same domain. Thus the communication inside a service is way more fluent and needs less network design than microservices does.
 
@@ -78,7 +74,9 @@ The main advantage miniservices has over microservices is the complexity of the 
 
 The main idea behind a modular monolith is preserving the idea of encapsulation but deploying it differently \cite{modularMonolithIdea}. Instead of deploying different services separately with each service having its own datastore, a module can be a library, plugin or namespace. This makes deploying way easier to manage but still having the modularity gotten from encapsulation.
 
-Just like with minservices each module will contain the functionalities of a single domain. But unlike the miniservices the modular monolith is compiled to one application instead of multiple.
+Just like with miniservices each module will contain the functionalities of a single domain. But unlike the miniservices the modular monolith is compiled to one application instead of multiple.
+
+Modular monolith is perfect for smaller teams because it does not require as much setup as miniservices or microservices.
 
 \section{The comparison}
 \label{sec:Comparison}
@@ -89,7 +87,7 @@ A good talk about modular monoliths \cite{modularMonolithTalk} shows that most o
 	\caption{Monolith, microservices spectrum \cite{modularMonolithTalk}}
 \end{figure}
 
-But this is not always the case as shown in \fullref{sec:Architectures}.There are cases where microservices are the best choice and there are cases where miniservices or a modular monolith is the best choice. This chapter will compare the three architectures and decide which architecture fits best with EFFE. This will be done with the help of chapter \fullref{sec:IsoRecap}
+But this is not always the case as shown in \fullref{sec:Architectures}.There are cases where microservices are the best choice and there are cases where miniservices or a modular monolith is the best choice. This chapter will further compare the three architectures and decide which architecture fits best with EFFE's priority. This will be done with the help of chapter \fullref{sec:Priorities}
 
 \section{Complexity}
 \label{sec:Complexity}
@@ -103,7 +101,7 @@ In the image shown below there is an example of the microservice architecture. T
 	\caption{Microservice architecture}
 \end{figure}
 
-Even tho they can connect to a centralized datastore the services don’t have any knowledge of each other. In a monolith application there are no different services. The modules can talk with each other via functions and imports. This means that there is knowledge of the other modules.
+Even tho they can connect to a centralized datastore the services don’t have any knowledge of each other. In a monolitic application there are no different services. The modules can talk with each other via functions and imports. This means that there is knowledge of the other modules.
 
 The other thing that makes microservices especially complex is the splitted datastores. Because the database is splitted it can be hard to handle foreign keys or pointers to other data objects. This is because the datastore does not have a direct connection to this pointer. This problem of complexity is not prevalent amongst the miniservices and modular monolith because in these architectures the datastore is shared.
 
@@ -122,11 +120,11 @@ Miniservices does have the benefit of choosing your own programming language but
 
 Modular monoliths are the worst in this section. A modular monolith is stuck with the same technology as a programming language and with the datastore.
 
-So which quality attributes are relevant to this attribute:
+The quality attributes that are relevant are:
 \begin{itemize}
+        \item \textbf{Porability:} The portability is very high because each service can be ported separately which makes it easier.
         \item \textbf{Compatability:} The compatibility between technologies is extremely relevant when looking at the architecture
         \item \textbf{Performance:} Because you can choose the technology for each service you can choose the language that creates the optimal performance for that specific service.
-        \item \textbf{Porability:} The portability is very high because each service can be ported separately which makes it easier.
 \end{itemize}
 
 \section{Testing}
@@ -162,7 +160,7 @@ In a microservice because each function is its own service. So the functions are
         \item Microservices
 \end{enumerate}
 
-Because the modular monolith contains all its services it is easy to test how they work together. This can even be done with unittesting. For the miniservices and microservices it is way more difficult. The reasoning behind this is the complexity of the service discovery. To test for example two services you need to setup the service discovery. With each service that needs to be tested it will become harder to test it because more services need to be discovered. A integration test with microservices may call 6 different services. But with miniservices it may be less if the functions that are called are in the same domain. This is why microservices gets the last place in this type of testing.
+Because the modular monolith contains all its services it is easy to test how they work together. This can even be done with unittesting. For the miniservices and microservices it is way more difficult. The reasoning behind this is the complexity of the service discovery. To test for example two services, service discovery needs to be setup. Each extra service that is added to the tests will add more complexity. An integration test with microservices may call six different services. But with miniservices it may be less if the functions that are called are in the same domain. This is why microservices gets the last place in this type of testing.
 
 \subsection{End-to-end tests}
 
@@ -182,7 +180,7 @@ All of the architectures are equal when it comes to load testing. This is becaus
 
 \subsection{Conclusion}
 
-So what are the quality attributes that testing influences:
+The quality attributes that testing influences are:
 
 \begin{itemize}
         \item \textbf{Maintainability:} Maintainability is about effectiveness and efficiency. Both can be measured with load testing. It is an important quality attribute but because load testing is equal for all this test type will not be considered.
@@ -199,11 +197,11 @@ So what are the quality attributes that testing influences:
 \section{Costs}
 \label{sec:Costs}
 
-Because EFFE is a startup costs are very important. EFFE does not have the steady money flow of a more mature company.
+Because EFFE is a startup costs are very important. EFFE does not have the steady money flow that a more mature company may have.
 
 There are two parts on how costs are created for software. The first one contains the price of development and the second one is the price of hosting.
 
-Right now EFFE employs one software engineer, Jessie Liauw A Fong. But he is also the co-founder so there is no money yet to be made by Jessie. This is because all the money EFFE makes goes right back into EFFE. There still needs to be a consideration what would happen if EFFE would hire more software engineers.
+Right now EFFE employs one software engineer, Jessie Liauw A Fong. But he is also the co-founder. All the money EFFE makes goes right back into EFFE. There still needs to be a consideration what would happen if EFFE would hire more software engineers.
 
 Development time and understanding the code go hand in hand. When you don’t understand the code you can’t develop. So how do these architectures hold considering development time and understanding the code?
 
@@ -213,11 +211,11 @@ Minservices and a modular monolith are in the same situation the code can be mor
 
 How big of a difference is there in this? Not much depending on your architecture. If your miniservices and modular monolith are structured in such a way that is logical it should not matter.
 
-When looking at the infrastructure there is a complete 180. Modular monolith is by far the least expensive architecture. Because the application can run on one server without the expense of server discovery it can be run on a server that costs \$5,- a month \cite{digitalOcean}. But the tricky parts comes when talking about interchangeability. What happens if a company wants a building block changed slightly only for them. If they are willing to pay for it it means that there needs to be a whole new server because the application is build on its own. When EFFE has 5 clients who want this and 5 clients that run on the standard version. EFFE would have to run it on 6 servers which would be \$30 dollars on the cheapest server which is not expensive at all.
+When looking at the infrastructure there is a complete 180. Modular monolith is by far the least expensive architecture. Because the application can run on one server without the expense of server discovery it can be run on a server that costs \$5,- a month \cite{digitalOcean}. But the tricky parts comes when talking about interchangeability. What happens if a company wants a building block changed slightly only for them. If they are willing to pay for it it means that there needs to be a whole new server because the application is build on its own. When EFFE has five clients who want this and five clients that run on the standard version. EFFE would have to run it on six servers which would be \$30 dollars on the cheapest server which is not expensive at all.
 
 Microservices and miniservices are the opposite side with microservice standing out more. These services require server discovery as mentioned before. There are open source server discovery services such as consul but those also need a seperate server. Server discovery is not the most expensive part. The most expensive part is a combination of having multiple services running on different servers that can autoscale. This means that there is less knowledge about our spendings beforehand.
 
-How can you deploy multiple services automatically. There are some amazing services for this. The most known are Kubernetes, Nomad and Docker swarm. These services however cost \$40,- per month with the minimum requirements and that is if you only have three instances of such a service running. The cost of the servers and the orchestrator can ramp up quickly.
+There are some amazing services that handle deployment and autoscaling for microservices. The most known are Kubernetes, Nomad and Docker swarm. These services however cost \$40,- per month with the minimum requirements and that is if you only have three instances of such a service running. The cost of the servers and the orchestrator can ramp up quickly.
 
 The quality attribute that is most affected by the cost is the \textbf{maintainability}. This is purely because if the infrastructure is this expensive there would be no money to maintain it.
 
@@ -235,13 +233,13 @@ As mentioned before microservices is created for horizontal scaling. When a serv
 When is scalability important? Well when talking about \textbf{performance}. This is also the quality attribute that is affected by scalability. When a server is going above a certain threshold it can duplicate itself and can now split the traffic along the new instance.
 
 \section{Frontend}
-\label{sec:Frontend}
+\label{sec:FrontendComparison}
 
 So until now most of the comparison were for backend or did also apply to frontend but it was not mentioned. When looking at the architecture there is one that stands out as easily adapted for frontend and that is modular monolith. This is because it will still be compiled to one application.
 
 First of all let’s define what EFFE considered for frontend. Right now EFFE uses Vue to create a single page application. But this does not mean other frontend frameworks are not considered explained in \fullref{sec:Frontend}.
 
-When looking at microservices in the backend there is a similar phenomenon in the frontend called micro-frontend or micro-apps \cite{microFrontends}. But there is one problem that persists with this solution and that is the sharing of ui elements. You can share them between services but that would mean each service would use the same language and need to be deployed all together if one of those ui elements change. Therefore this is not a solution. An talk about micro-apps (microservices frontend) gave a convincing story about why you should switch to them \cite{frontendMicroservices}. But when asked about the UI elements there was no answer that fixed this problem.
+When looking at microservices in the backend there is a similar phenomenon in the frontend called micro-frontend or micro-apps \cite{microFrontends}. But there is one problem that persists with this solution and that is the sharing of UI elements. You can share them between services but that would mean each service would use the same language and need to be deployed all together if one of those UI elements change. Therefore this is not a solution. A talk about micro-apps (microservices frontend) gave a convincing story about why you should switch to them \cite{frontendMicroservices}. But when asked about the UI elements there was no answer that fixed this problem.
 
 What happens in the current implementations of microservices and miniservices. There is no such thing as microapps for big application. Most of them is just one single code base.
 
@@ -249,21 +247,19 @@ Concluding that for frontend there is only one possibility when looking at modul
 
 \section{Recap}
 
-There is a lot of articles written about monoliths vs microservices. In the end minservices has some of the benefits and cons of both.
-
 This is a recap of what is discussed in \fullref{sec:ModularArchitecture}. As mentioned in \fullref{sec:Comparison} in this research there will be looked at the quality attributes and how they matched up per architecture.
 
-\fullref{sec:Complexity} talks about the complexity and how it can influence the whole project in its whole. The one that came out best was modular monolith and the quality attributes that were applicable where \textbf{maintainability} and \textbf{security}.
+\fullref{sec:Complexity} talks about the complexity and how it can influence the whole project in its whole. The architecture that ended on top was modular monolith and the quality attributes that were applicable where \textbf{maintainability} and \textbf{security}.
 
 \fullref{sec:Technology} microservices came out on top with flying colors. With miniservices following and modular monolith as an obvious last. The quality attributes that are influenced by technology are \textbf{compatibility}, \textbf{performance} and \textbf{portability}
 
 \fullref{sec:Testing} was by far the most contested section with no clear winner. But if you looked at the types of tests that were considered (unit, integration, end-to-end and load testing) modular monolith ended with the best result with miniservices again in the middle and microservices ending last. The quality attributes for testing are \textbf{maintainability}, \textbf{compatibility}, \textbf{funtional sustiainability}, \textbf{performance} and \textbf{sustainability}
 
-\fullref{sec:Costs} the clear winner in this section was modular monolith with miniservices following and microservices at a obvious last place. The quality attributes affected by the cost is \textbf{maintainability}
+\fullref{sec:Costs} the clear winner in this section was modular monolith with miniservices following and microservices at an obvious last place. The quality attributes affected by the cost is \textbf{maintainability}
 
-\fullref{sec:Scalability} the obvious winner was microservices. In second place was miniservices and last was modular monolith. The quality attribute applicable is \textbf{performance}.
+\fullref{sec:Scalability} the winner was microservices. In second place was miniservices and last was modular monolith. The quality attribute applicable is \textbf{performance}.
 
-\fullref{sec:Frontend} eventually there was only one architecture that actually made sense for frontend and that was the modular monolith.
+\fullref{sec:FrontendComparison} eventually there was only one architecture that actually made sense for frontend and that was the modular monolith.
 
 \section{Conclusion}
 
@@ -272,5 +268,3 @@ The architecture that fits EFFE best is the modular monolith. The chapters where
 Microservices have the clear distinction of winning the race on technology and scalability but this is not where the focus lays. Though technology aligns with some of EFFE's focusses it does not compete with the main focus that the modular monolith architecture touches on and the pros do not outweigh the cons.
 
 Miniservices is a mixture of modular monolith and microservices and it does take some good parts of the both architectures but also some cons of both architectures. The biggest con here is the complexity of the network as explained in \fullref{sec:Complexity}.
-
-And last of all both microservices and miniservices cost to much for EFFE at this stage of the company.
