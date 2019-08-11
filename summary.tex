@@ -1,3 +1,12 @@
 \chapter{Summary}
 
 The company EFFE Planning makes employee schedule software. The business model of EFFE requires modules that are interchangeable. This is so EFFE can cater to bigger clients.
+The question this research will answer is:
+
+\largequote{What is the best way to transform a monolith into a modular architecture, where the modules are interchangeable with each other}
+
+The first course of action was to order the quality attributes. These quality attributes were used to decide which modular architecture is the best fit for EFFE. This was the modular monolith architecture.
+
+The backend framework used to implement the modular monolith is Django. Django is domain driven out of the box. In the frontend Vue was the framework that best aligned with the order of the quality attributes. The actual implementation that was used is Nuxt.js which is a framework on top of Vue. Nuxt.js was used because the current application already uses it.
+
+When implementing the modular monolith there was a need to create an assembler and dissembler for the modules. This makes it easier for developers and in the deployment lane.

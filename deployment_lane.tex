@@ -26,7 +26,7 @@ Right now EFFE uses \href{https://www.ansible.com/}{Ansible}. What makes ansible
 
 There are other options. The most well known are \href{https://www.saltstack.com/}{SaltStack}, \href{https://puppet.com/}{Puppet} and \href{https://www.chef.io/}{Chef} but all of these solutions require a master server. This is something EFFE does not want as explained in the previous chapter.
 
-There are two differences between ansible and fabric. The first one is pretty obvious when using both. Fabric uses python to write your configuration and ansible uses yaml. Ansible is written in python but the yaml is what you write. Base on the yaml files ansible decides what to run when. The other big difference is that ansible has preconfigured modules. This means that if you want to, for example, install a package you don't write the whole command, as with fabric, but you define the module and the packages. To get a clear understanding an example is shown below:
+There are two differences between ansible and fabric. The first one is pretty obvious when using both. Fabric uses python to write your configuration and ansible uses yaml. Ansible is written in python but the yaml is what you write. Base on the yaml files ansible decides what to run when. The other big difference is that ansible has preconfigured modules. This means that if you want to, for example, install a package you do not write the whole command, as with fabric, but you define the module and the packages. To get a clear understanding an example is shown below:
 
 Fabric:
 \begin{verbatim}
