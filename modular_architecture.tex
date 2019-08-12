@@ -8,10 +8,11 @@ When researching famous architectures in software there are a few examples of no
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{layered_architecture.png}
-	\caption{Layered architecture \cite{layeredArchitecture}}
+        \caption{Layered architecture \cite{layeredArchitecture}}
+        \label{fig:LayeredArchitecture}
 \end{figure}
 
-As shown in the figure the architecture is layered based on responsibilities. Each layer having its own purpose. The layers can talk with each other but they are intertwined. This means that a class or object in the presentation layer can talk to the same business layer object as another presentation layer class. This concludes in the objects being highly coupled.
+As shown in figure \ref{fig:LayeredArchitecture} the architecture is layered based on responsibilities. Each layer having its own purpose. The layers can talk with each other but they are intertwined. This means that a class or object in the presentation layer can talk to the same business layer object as another presentation layer class. This concludes in the objects being highly coupled.
 
 A modular architecture is based upon modules. A module is:
 \largequote{deployable, manageable, natively reusable, composable, stateless unit of software thatprovides a concise interface to consumers” \cite{moduleDefinition}}
@@ -54,11 +55,12 @@ Another best practice is \textbf{writing documentation} \cite{microservicesBestP
 Another challenge with microservice is the \textbf{monitoring} \cite{microservicesBestPractice} of the services. Because it is not known how many services are online it is important to know when they are online and what they log. For example, our messaging service is used frequently and duplicates itself. This then means that the logging of the new service needs to be picked up by your monitoring system in order to view the whole picture of the running application.
 
 \subsection{Miniservices}
-One of the “new” ones is miniservices. The reason new is between quotes is because most companies that implement microservices actually implement miniservices. The difference between microservices and miniservices is best described in the figure below:
+One of the “new” ones is miniservices. The reason new is between quotes is because most companies that implement microservices actually implement miniservices. The difference between microservices and miniservices is best described in figure \ref{fig:MiniservicesArchitecture}.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{miniservices.png}
-	\caption{Miniservices architecture \cite{miniservicesDefinition}}
+        \caption{Miniservices architecture \cite{miniservicesDefinition}}
+        \label{fig:MiniservicesArchitecture}
 \end{figure}
 
 Miniservices is essentially an architecture based on breaking specific rules of microservices \cite{miniservicesOrigin}. As shown in the picture the biggest difference between microservices and miniservices is that microservices are actual features being decoupled and miniservice is about decoupling a domain of features.
@@ -76,15 +78,16 @@ The main idea behind a modular monolith is preserving the idea of encapsulation 
 
 Just like with miniservices each module will contain the functionalities of a single domain. But unlike the miniservices the modular monolith is compiled to one application instead of multiple.
 
-Modular monolith is perfect for smaller teams because it does not require as much setup as miniservices or microservices.
+Modular monolith is perfect for smaller teams because it does not require as much setup as miniservices or microservices. But Shopify has also proven that this architecture can also work in big companies \cite{shopifyModularMonolith}.
 
 \section{The comparison}
 \label{sec:Comparison}
 
-A good talk about modular monoliths \cite{modularMonolithTalk} shows that most of the time when thinking of architecture there are two extremes. The monoliths and the microservices. As shown in the figure below:
+A good talk about modular monoliths \cite{modularMonolithTalk} shows that most of the time when thinking of architecture there are two extremes. The monoliths and the microservices. As shown in figure \ref{fig:MonolithMicroservicesSpectrum}.
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{microservices-spectrum.png}
-	\caption{Monolith, microservices spectrum \cite{modularMonolithTalk}}
+        \caption{Monolith, microservices spectrum \cite{modularMonolithTalk}}
+        \label{fig:MonolithMicroservicesSpectrum}
 \end{figure}
 
 But this is not always the case as shown in \fullref{sec:Architectures}.There are cases where microservices are the best choice and there are cases where miniservices or a modular monolith is the best choice. This chapter will further compare the three architectures and decide which architecture fits best with EFFE's priorities. This will be done with the help of chapter \fullref{sec:Priorities}
@@ -94,11 +97,12 @@ But this is not always the case as shown in \fullref{sec:Architectures}.There ar
 
 Complexity always plays a role when choosing the right architecture. Looking at the three architectures shown in \fullref{sec:Architectures} it is obvious that the complexity changes the smaller the modules. Thus the most complex architecture is microservices and the least complex one is modular monolith. With miniservices right in the middle.
 
-In the figure shown below there is an example of the microservice architecture. This shows that each service may have its own datastore but can also run on a different server. This means that each service needs to know in some way where the other services are located. This is called service discovery. Service instances have dynamically assigned network locations. Moreover, the set of service instances changes dynamically because of autoscaling, failures, and upgrades. Consequently, your client code needs to use a more elaborate service discovery mechanism \cite{serviceDiscovery}. This is also the case with miniservices.
+In figure \ref{fig:MicroservicesArchitecture} there is an example of the microservice architecture. This shows that each service may have its own datastore but can also run on a different server. This means that each service needs to know in some way where the other services are located. This is called service discovery. Service instances have dynamically assigned network locations. Moreover, the set of service instances changes dynamically because of autoscaling, failures, and upgrades. Consequently, your client code needs to use a more elaborate service discovery mechanism \cite{serviceDiscovery}. This is also the case with miniservices.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{microservice-architecture.png}
-	\caption{Microservice architecture}
+        \caption{Microservices architecture}
+        \label{fig:MicroservicesArchitecture}
 \end{figure}
 
 Even though they can connect to a centralized datastore the services do not have any knowledge of each other. In a monolitic application there are no different services. The modules can talk with each other via functions and imports. This means that there is knowledge of the other modules.
