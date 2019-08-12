@@ -7,14 +7,12 @@ This chapter contains the information on how the research will be conducted.
 \subsection{The problem}
 \label{sec:TheProblem}
 
-Right now EFFE is developing an application for employment agencies in which those employment agencies can schedule their employees automatically. To implement custom features that some clients want. EFFE has decided to add something to the business model called building blocks.
+Right now EFFE is developing an application for employment agencies in which those employment agencies can schedule their employees automatically. To implement custom features that some clients want, EFFE has decided to add something to the business model called building blocks.
 
 \largequote{Building blocks are interchangeable implementations of business logic that can be reused as efficiently as possible}
 
-EFFE is looking how to implement the building blocks in such a manner where maintainability is the focus.
-
 \subsection{Objective}
-The objective is to create a recommendation for an infrastructure, how to create and maintain such an infrastructure, where the focus lays on interchangeability and maintainability of the different functionalities.
+The objective is to create a recommendation for an architecture, how to create and maintain such an architecture, where the focus lays on interchangeability and modularity of the different functionalities.
 
 \begin{tabularx}{\linewidth}{|>{\hsize=.3\hsize}X|>{\hsize=.7\hsize}X|}
 	\hline
@@ -23,11 +21,11 @@ The objective is to create a recommendation for an infrastructure, how to create
 	\\
 	\hline
 	EFFE &
-	The obvious stakeholder is EFFE. EFFE will enhance its business model. EFFE will also create a better infrastructure which means that the company can implement functionalities faster and cater more to the clients.
+	EFFE will use this research to enhance its business model. EFFE will also create a better infrastructure which means that the company can implement functionalities faster and cater better to the clients.
 	\\
 	\hline
 	Client &
-	The client is also the one interested in this process. Not in what happens behind the scenes, but the opportunity it brings when partnering with EFFE.
+	The client is not interested in what happens behind the scenes, but the opportunity it brings when partnering with EFFE.
 	\\
 	\hline
 \end{tabularx}
@@ -38,21 +36,21 @@ The objective is to create a recommendation for an infrastructure, how to create
 This chapter describes who/what the objects are for this research and why.
 
 \subsubsection{Backend architecture}
-Arguably the most important object is the backend architecture. There are already a great number of researches available regarding backend architecture. The backend is also the place where the business logic will be expressed. The backend connects to the database and thus needs much attention when creating this section of the application.
+Arguably the most important object is the backend architecture. There are already a great number of researches available regarding backend architecture. The backend is also the place where the business logic will be expressed.
 
 \subsubsection{Frontend architecture}
 The second object, frontend architecture, is a lesser known subject when looking at modularity of the actual system. Most of the big companies have a single frontend application per platform.
 
 \subsubsection{Deployment lane}
 \label{sec:DeploymentLane}
-The backend and the frontend are the software side of the equation but the hardware is also important. Where does the software run? How does it run? The deployment lane is the section that pieces it all together. This object creates the hardware or virtual hardware and sets this hardware up so it can then proceed to deploy the frontend and backend on the just created hardware. This process is very important and EFFE is not the first company wanting to adopt this. Which means there are already a great number of researches in this area.
+The backend and the frontend are the software side of the equation but the hardware is also important. The deployment lane is the section that pieces it all together. This object creates the hardware or virtual hardware and sets this hardware up so it can then proceed to deploy the frontend and backend on the just created hardware. How does the current deployment lane change with the new architectures?
 
 \subsubsection{Software architect}
 \label{sec:SoftwareArchitect}
-The last object to be researched is the software architect. The software architect's job is to design how the system will be build. This can be small scale like a naming convention but also bigger scale like layered architecture or modular architecture. Even the programming language can be decided by a software architect.
+The last object to be researched is the software architect. The software architect's job is to design how the system will be build. This can be on a small scale like naming conventions but also bigger scale like layered architecture or modular architecture. Even the programming language can be decided by a software architect.
 
 \subsection{Research perspective}
-The research perspective is straight forward. Because this research is written by one of the founders of EFFE it is best to approach this research from the side of EFFE. This means that there will be more emphasis on sustainability than for example on the performance. Because performance can be bought later on by upgrading hardware but sustainability can only be influenced at the start of a project or after a big rewrite, which EFFE tries to avoid.
+The research perspective is straight forward. Because this research is written by one of the founders of EFFE it is best to approach this research from the side of EFFE. This means that there will be more emphasis on maintainability than for example performance. Because performance can be bought later on by upgrading hardware but maintainability can only be influenced at the start of a project.
 
 \subsection{Research sources}
 This section will describe which sources will be used when evaluating the research objects. This will not include everything but a broad spectrum of the sources that may be used in the research:
@@ -60,11 +58,11 @@ This section will describe which sources will be used when evaluating the resear
 \begin{itemize}
 	\item \textbf{Modular architecture books: }This research comes down to modular programming. Modular programming is a very broad term and it is important to find how someone else may look at this term.
 
-	\item \textbf{Implementations of modular programming: }Theory is one side of the coin. Everything can work perfectly in theory but when implementing the theoretic side you will find problems you haven't thought of before.
+	\item \textbf{Implementations of modular architectures: }Theory is one side of the coin. Everything can work perfectly in theory but when implementing the theoretic side there will be problems that weren't considered before.
 
-	\item \textbf{Critique from outside: }It is known that software architecture is an opinion based subject. This is because especially this area of software development is fairly young. Software architecture did not have much time to develop itself as much as some other aspects of software engineering such as operating systems. Because software architecture is young there are a great number of people voicing their opinions and it is important to look at the criticism on some of the architectures.
+	\item \textbf{Critique from outside: }It is known that software architecture is an opinion based subject. There are no official accepted right way to do certain things. This is because especially this area of software development is fairly young. Software architecture did not have much time to develop itself as much as some other aspects of software engineering such as operating systems. Because software architecture is young there are a great number of people voicing their opinions and it is important to look at the criticism on some of the architectures.
 
-	\item \textbf{Researches on deployment of architecture: } There will be more than one architecture researched. Each architecture has its own development environment and deployment environment. The architecture of the servers on which the program runs is important but that will be heavily influenced by the architecture of the software. Nevertheless should it be researched separately from the software architecture
+	\item \textbf{Researches on deployment of an architecture: } There will be more than one architecture researched. Each architecture has its own development environment and deployment environment. The infrastructure of the servers on which the program runs is heavily influenced by the architecture of the software.
 \end{itemize}
 
 \subsection{Evaluation criteria}
@@ -75,7 +73,7 @@ These are the criteria or leading questions that will be asked to research objec
 
 	\item \textbf{What are the most used architectures in this area: }There is always a reason why one architecture is very common and the other one isn't. In the research the reasoning will be extracted and reflected on.
 
-	\item \textbf{What are the most upcoming architectures that are focused on modularity: }Again the whole research is based on the building blocks. These modular functionalities that can be designed via a common interface. What is the difference in solution between these architectures?
+	\item \textbf{What are upcoming architectures that are focused on modularity: }Again the whole research is based on the building blocks. These modular functionalities that can be designed via a common interface. What is the difference in solution between these architectures?
 
 	\item \textbf{Which programming languages has the best attributes to complement the modularity: }Some languages are written purely for scripting or some are written to be focused on implementing algorithms more easily. Each programming language has its attributes and which of these attributes are most defining and important to a modular system.
 
@@ -113,14 +111,14 @@ The main question this research will be answering is:
 
 \subsection{Question 1}
 \label{sec:Question1}
-The first question that will be asked is what is the purpose of this question. The first question is about software architecture. How does a software architect create a software architecture.
+The first question is about software architecture. How does a software architect create a software architecture.
 
 \begin{figure}[H]
 	\includegraphics[width=\linewidth]{creating_architecture.png}
 	\caption{How a software architecture is chosen}
 \end{figure}
 
-The thicker red lines show the parts of the model that will be explored in the question. Thus the question is:
+The red lines show the parts of the figure that will be explored in the question. Thus the question is:
 
 \largequote{What was the thought process behind choosing a software architecture whilst considering each implementation and its quality attributes?}
 
@@ -149,7 +147,7 @@ Sub questions:
 \subsection{Question 3}
 \largequote{Which implementations are there of the solutions provided for modular architecture?}
 
-The solutions or architectures provided from \fullref{sec:Question2} will have implementations. These implementations may be a theoretic paper or a framework which implements this architecture. This question explores how and why these implementations have been made in the way they are. Other questions that will be answered are:
+The solutions or architectures provided from \fullref{sec:Question2} will have implementations. These implementations may be a theoretic paper or a framework which implements this architecture. This question explores how and why these implementations have been made. Other questions that will be answered are:
 \begin{itemize}
 	\item How mature is the architecture in contrast to the implementations?
 	\item How does the language chosen in the implementation reflect to the architecture?
@@ -158,7 +156,7 @@ The solutions or architectures provided from \fullref{sec:Question2} will have i
 
 \subsection{Question 4}
 
-\largequote{What are the key elements of which a software architecture will influence the deployment lane?}
+\largequote{What are the key elements of a software architecture that will influence the deployment lane?}
 
 This question hints at the relation between a software architecture and the deployment lane. Right now there is a limited view on how the deployment lane should be and how it can be. In order for the practical research to work there needs to be an answer to these questions:
 \begin{itemize}
@@ -168,10 +166,10 @@ This question hints at the relation between a software architecture and the depl
 
 \section{Methods}
 
-This methods used to conduct this research will be explained below.
+The methods used to conduct this research will be explained below.
 
 \subsection{Interviews}
 The interviews will be conducted with pre-stated questions. These questions may require follow up questions to get a more detailed view. All of the interviews will be recorded and typed out in the \fullref{sec:Interviews}.
 
 \subsection{Desk research}
-Most of the research will be desk research. There are lots of studies done and small blogs written about the main question. People have shared their experience implementing architectures and their thoughts on it.
+Most of the research will be desk research. There are lots of studies and small blogs written about the main question. People have shared their experience implementing architectures and their thoughts on it.
