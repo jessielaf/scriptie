@@ -1,6 +1,6 @@
 \chapter{Implementation of the architecture}
 
-The chosen implementation is modular monolith. As mentioned in \fullref{sec:ModularMonolith} a modular monolith is based on domain driven design where the modules can be developed separately. Most of the principles can be taken from domain driven design. But in a modular monolith the modules do not know what other modules contain.
+The chosen implementation is modular monolith. As mentioned in \fullref{sec:ModularMonolith}, a modular monolith is based on domain driven design where the modules can be developed separately. Most of the principles can be taken from domain driven design. But in a modular monolith the modules do not know what other modules contain.
 
 \section{Characteristics}
 
@@ -12,7 +12,7 @@ What is important to note is that each module is linked to a domain but there is
 
 \section{Current situation}
 
-The table below is in order to paint a good picture of the current application, situation and map which domains there are, inside the EFFE application, and the functionalities they possess.
+The table below is in order to paint a good picture of the current application and situation. The table contains the domains and the functionalities they possess.
 
 \begin{tabularx}{\linewidth}{|>{}X|>{}X|>{}X|}
     \hline
@@ -119,11 +119,11 @@ When creating this API the assumption is done that a modern ORM(Object relationa
 
 This assumption is done because almost every modern framework uses this concept to map objects to a relational database which is what EFFE uses.
 
-Therefore the first attribute defined in our api is the \textbf{model} itself.
+Therefore the first attribute defined in our API is the \textbf{model} itself.
 
-Microservices talk with each other via a protocol. The most used protocols are HTTP, TCP or AMQP \cite{microservicesAPI}. What all of these protocols have in common is that they return a serialized version of the response. Most of the time in JSON.
+Microservices talk with each other via a protocol. The most used protocols are HTTP, TCP or AMQP \cite{microservicesAPI}. What all of these protocols have in common is that they return a serialized version of the response, most of the time in JSON.
 
-Commonly in web frameworks there is something used called a dataclass or a serializer. This class can convert an object into JSON or any other content type. Thus if the api of a module in the modular monolith can expose such a \textbf{serializer} the application can serialize all the foreign keys the module's model has.
+Commonly in web frameworks there is something used called a dataclass or a serializer. This class can convert an object into JSON or any other content type. Thus if the API of a module in the modular monolith can expose such a \textbf{serializer} the application can serialize all the foreign keys the module's model has.
 
 % But when working with the application of EFFE the company found that each user role may require a other specific serializer. For example: EFFE has three roles: the employment agency employee, the client and the temp worker. If the client and the temp worker want to retrieve the shifts the client also gets the users in that shift while the temp worker only sees the general data of the shift. This is so that temp workers will not have the biased in taking shifts with people they like or vise versa.
 
@@ -131,7 +131,7 @@ Commonly in web frameworks there is something used called a dataclass or a seria
 
 \subsection*{Frontend}
 
-The frontend API is more simple than the backend API. The frontend API only exports CRUD (Create Read Update Delete) functionalities. The class the modules call API is just a service over which the modules call the Rest API of the backend.
+The frontend API is more simple than the backend API. The frontend API only exports CRUD (Create Read Update Delete) functionalities. The class the modules call "API" is just a service over which the modules call the Rest API of the backend.
 
 \section{Programming language and Web framework}
 
@@ -173,7 +173,7 @@ The second domain is shifts. A shift has four attributes
     \item Employees
 \end{itemize}
 
-The application will provide an api which can do a create, list and retrieve(single object) call for both shifts and employees.
+The application will provide a Rest API which can do a create, list and retrieve(single object) call for both shift and employee.
 
 Last of all the modules should only talk with each other via an API explained in \fullref{sec:API}.
 
@@ -188,7 +188,7 @@ Rails and Spring were not successful when implementing the modular monolith arch
 \subsection{Frontend}
 \label{sec:Frontend}
 
-Frontend is a very fast moving lane in software engineering. On october 8th 2010 \cite{angularJs} the first big frontend framework was published called AngularJs. This framework has been maintained by google and received a lot of traction. Three years later at Js ConfUS Jordan Walke of Facebook gave an introduction to React \cite{reactJs}. This changed the frontend world. Mainly because react was not a framework but a library. Which means that it is able to be included it in existing project whereas with Angular there is solely an Angular application. In February 2014 the lastest big javascript framework would be released called Vue \cite{vueJs}. Vue is often seen as the perfect blend between React and Angular. This is partly because Vue can be used as a library and a framework.
+Frontend is a very fast moving lane in software engineering. On october 8th 2010 \cite{angularJs} the first big frontend framework was published called AngularJs. This framework has been maintained by google and received much traction. Three years later at Js ConfUS Jordan Walke of Facebook gave an introduction to React \cite{reactJs}. This changed the frontend world. Mainly because react was not a framework but a library. Which means that it is able to be included it in existing project whereas with Angular there is solely an Angular application. In February 2014 the lastest big javascript framework would be released called Vue \cite{vueJs}. Vue is often seen as the perfect blend between React and Angular. This is partly because Vue can be used as a library and a framework.
 
 These three frameworks / libraries where chosen because they are the most used and the most loved by the javascript community \cite{allFrontendFrameworks}.
 
@@ -253,7 +253,7 @@ As mentioned earlier the architecture that has been chosen for an application ca
 
 \subsection{Backend}
 
-First of all the module api should be added. This can be done in \texttt{effe/api} and looks like this:
+First of all the module API should be added. This can be done in \texttt{effe/api} and looks like this:
 \begin{verbatim}
     from typing import Any
     from dataclasses import dataclass
@@ -263,10 +263,9 @@ First of all the module api should be added. This can be done in \texttt{effe/ap
     class ModuleAPI:
         model: Any
         serializer: Any
-        serializer_per_role: Any = None
 \end{verbatim}
 
-The first module that will be converted is shifts. This is because this is the biggest module. If this module can be converted all of them can be. The first thing to do is replace a direct link to the model to a link via the module. This means
+The module that will be converted is shifts. This is because this is the biggest module. If this module can be converted all of them can be. The first thing to do is replace a direct link to the model to a link via the module API. This means
 \begin{verbatim}
     form shift.model import Shift
 \end{verbatim}
@@ -308,7 +307,7 @@ To:
 
 The first problem that this created is not being able to import a serializer into a model. This happens because python imports all classes even if it does not use one. Apparently this creates a circular dependency. When python has a circular dependency it gives a \texttt{ImportError: cannot import name} error. There is an open question about this on stackoverflow that has not been answered yet \cite{circularDependencyQuestion}.
 
-The dependencies of the api need to be lazy loaded. There are two options on how to do this. The first one is to overwrite a function in the api. The ModuleApi would look like:
+The dependencies of the API need to be lazy loaded. There are two options on how to do this. The first one is to overwrite a function in the API. The ModuleApi would look like:
 \begin{verbatim}
     from abc import abstractmethod
 
@@ -323,7 +322,7 @@ The dependencies of the api need to be lazy loaded. There are two options on how
             pass
 \end{verbatim}
 
-The api would look like this:
+The API would look like this:
 \begin{verbatim}
     from effe.api import ModuleAPI
 
@@ -352,19 +351,16 @@ The other method is string based imports. Where the ModuleApi would look like th
         _model: str
         _model_package: str
         _serializer: str
-        _serializer_per_role: Dict[str, str]
 
         def __init__(
             self,
             model_package: str,
             model: str,
             serializer: str,
-            serializer_per_role: Dict[str, str] = {},
         ):
             self._model = model
             self._model_package = model_package
             self._serializer = serializer
-            self._serializer_per_role = serializer_per_role
 
         def model(self):
             return getattr(importlib.import_module(self._model_package), self._model)
@@ -373,16 +369,16 @@ The other method is string based imports. Where the ModuleApi would look like th
             return importlib.import_module(self._serializer).BaseSerializer
 \end{verbatim}
 
-And the api:
+And the API:
 \begin{verbatim}
     from effe.api import ModuleAPI
 
     api = ModuleAPI("shift.models", "Shift", "shift.serializers.base")
 \end{verbatim}
 
-The first option is better. This is because the model is imported directly this means that when renaming models or paths some IDE's will pick it up themselves. It is also more explicit and pylinters will pick up if a module cannot be imported.
+The first option is better. This is because the model is imported directly this means that when renaming models or paths some IDE's will pick up the changes automatically. It is also more explicit and pylinters will pick the if a module cannot be imported.
 
-Switching to the new api was easy until the user shift view needed to be changed. This view shows the the shifts of one user and the shift change requests of a user. This means that inside the shift serializer the shift change request serializer should be applied. But to make sure there are no circular dependencies this can not be done inside the \texttt{BaseSerializer} of the shift module. So there needs to be a function on which fields need to be serialized. Thus the api needs to be rewritten.
+Switching to the new API was easy until the user shift view needed to be changed. This view shows the the shifts of one user and the shift change requests of a user. This means that inside the shift serializer the shift change request serializer should be applied. But to make sure there are no circular dependencies this can not be done inside the \texttt{BaseSerializer} of the shift module. So there needs to be a function on which fields need to be serialized. Thus the API needs to be rewritten.
 
 The django rest framework uses a private field \texttt{\_declared\_fields} that contains the nested serializers. The new ModuleApi looks like this:
 \begin{verbatim}
@@ -472,7 +468,7 @@ The config in \texttt{modad.yml} that is needed to initialize our modular monoli
 
 This will clone the most of the code into the \texttt{src/modules} and pages into \texttt{src/pages}. Currently this is a one way street. The modules will now only be cloned. But by this logic the modules can also be extracted via this config. This makes it easy to use in development. Just load a module, change somethings and pull it back up. Thus the assembler also needs to dissemble the modules. This dissembler looks at the config and based on it, it creates a new folder with the changes made to the directories that are copied by the assembler.
 
-The current shift module is intertwined with the change request, availability and shift market modules. The first action is to remove these from the shift module. Next up is the api for the shift module. Because Nuxt.js is used instead of only Vue the api looks a bit different:
+The current shift module is intertwined with the change request, availability and shift market modules. The first action is to remove these from the shift module. Next up is the API for the shift module. Because Nuxt.js is used instead of only Vue the API looks a bit different:
 \begin{verbatim}
     export default class Api {
         static create(axios, object, options = {}) {

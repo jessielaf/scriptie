@@ -12,7 +12,7 @@ Right now EFFE is developing an application for employment agencies in which tho
 \largequote{Building blocks are interchangeable implementations of business logic that can be reused as efficiently as possible}
 
 \subsection{Objective}
-The objective is to create a recommendation for an architecture, how to create and maintain such an architecture, where the focus lays on interchangeability and modularity of the different functionalities.
+The objective is to create a recommendation for an architecture and how to create and maintain such an architecture. Where the focus lays on interchangeability and modularity of the different functionalities.
 
 \begin{tabularx}{\linewidth}{|>{\hsize=.3\hsize}X|>{\hsize=.7\hsize}X|}
 	\hline
@@ -43,7 +43,7 @@ The second object, frontend architecture, is a lesser known subject when looking
 
 \subsubsection{Deployment lane}
 \label{sec:DeploymentLane}
-The backend and the frontend are the software side of the equation but the hardware is also important. The deployment lane is the section that pieces it all together. This object creates the hardware or virtual hardware and sets this hardware up so it can then proceed to deploy the frontend and backend on the just created hardware. How does the current deployment lane change with the new architectures?
+The backend and the frontend are the software side of the equation but the hardware is also important. The deployment lane is the section that pieces it all together. This object creates the hardware or virtual hardware and sets this hardware up so it can then proceed to deploy the frontend and backend on the just created hardware.
 
 \subsubsection{Software architect}
 \label{sec:SoftwareArchitect}
@@ -60,13 +60,13 @@ This section will describe which sources will be used when evaluating the resear
 
 	\item \textbf{Implementations of modular architectures: }Theory is one side of the coin. Everything can work perfectly in theory but when implementing the theoretic side there will be problems that weren't considered before.
 
-	\item \textbf{Critique from outside: }It is known that software architecture is an opinion based subject. There are no official accepted right way to do certain things. This is because especially this area of software development is fairly young. Software architecture did not have much time to develop itself as much as some other aspects of software engineering such as operating systems. Because software architecture is young there are a great number of people voicing their opinions and it is important to look at the criticism on some of the architectures.
+	\item \textbf{Critique from outside: }It is known that software architecture is an opinion based subject. There are no official accepted right way to do certain things. This is because this area of software development is fairly young. Software architecture did not have time to develop itself as much as some other aspects of software engineering such as operating systems. Because software architecture is young there are a great number of people voicing their opinions and it is important to look at the criticism on some of the architectures.
 
 	\item \textbf{Researches on deployment of an architecture: } There will be more than one architecture researched. Each architecture has its own development environment and deployment environment. The infrastructure of the servers on which the program runs is heavily influenced by the architecture of the software.
 \end{itemize}
 
 \subsection{Evaluation criteria}
-These are the criteria or leading questions that will be asked to research objects. Note: not all evaluation criteria apply to all research objects:
+These are the criteria or leading questions that will be asked to research objects. Note: not all evaluation criteria apply to all research objects.
 
 \begin{itemize}
 	\item \textbf{What is the biggest pitfall when implementing a new architecture: }As mentioned in \fullref{sec:SoftwareArchitect} the software architect makes the choices around the architecture. So it is important to look at what can go wrong when implementing a new architecture. What are the common pitfalls they have experienced when implementing a new architecture.
@@ -75,7 +75,7 @@ These are the criteria or leading questions that will be asked to research objec
 
 	\item \textbf{What are upcoming architectures that are focused on modularity: }Again the whole research is based on the building blocks. These modular functionalities that can be designed via a common interface. What is the difference in solution between these architectures?
 
-	\item \textbf{Which programming languages has the best attributes to complement the modularity: }Some languages are written purely for scripting or some are written to be focused on implementing algorithms more easily. Each programming language has its attributes and which of these attributes are most defining and important to a modular system.
+	\item \textbf{Which programming languages has the best attributes to complement the modularity: }Some languages are written purely for scripting or some are written to be focused on implementing algorithms more easily. Each programming language has its attributes. Which of these attributes are most defining and important to a modular system?
 
 	\item \textbf{Which quality attributes are deemed most important to EFFE?: }The quality attributes from ISO 205010 \cite{iso25010} are the backbone of the architecture. The research will prioritize these quality attributes based on what is most important to EFFE.
 \end{itemize}
@@ -89,8 +89,6 @@ These are the criteria or leading questions that will be asked to research objec
 
 \subsection{Expected Results}
 \label{sec:ExpectedResults}
-
-The results will be the guidelines on which the practical part of this research will be based.
 
 \begin{itemize}
 	\item \textbf{Backend architecture guidelines: } These are the guidelines on which the backend architecture will be based. These guidelines will indicate why the choice for a certain approach was made and what the specific approach is.
@@ -121,7 +119,7 @@ The first question is about software architecture. How does a software architect
 
 The red lines show the parts of figure \ref{fig:ChooseSoftwareArchitecture} that will be explored in the question. Thus the question is:
 
-\largequote{What was the thought process behind choosing a software architecture whilst considering each implementation and its quality attributes?}
+\largequote{What is the thought process behind choosing a software architecture whilst considering each implementation and its quality attributes?}
 
 This question will explore how a software architect chooses their architecture. This will give more insights into what they consider when choosing an implementation so that their rational can be extracted and taken into consideration.
 
@@ -170,7 +168,7 @@ This question hints at the relation between a software architecture and the depl
 The methods used to conduct this research will be explained below.
 
 \subsection{Interviews}
-The interviews will be conducted with pre-stated questions. These questions may require follow up questions to get a more detailed view. All of the interviews will be recorded and typed out in the \fullref{sec:Interviews}.
+The interviews will be conducted with pre-stated questions. These questions may require follow up questions to get a more detailed view. All of the interviews will be recorded and typed out in \fullref{sec:Interviews}.
 
 \subsection{Desk research}
-Most of the research will be desk research. There are lots of studies and small blogs written about the main question. People have shared their experience implementing architectures and their thoughts on it.
+Most of the research will be desk research. There are a great number of studies and small blogs written about the main question. People have shared their experience implementing architectures and their thoughts on it.
